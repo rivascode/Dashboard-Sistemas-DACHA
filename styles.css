@@ -46,24 +46,6 @@ body {
     repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.09) 0 1px, transparent 1px 72px);
 }
 
-.brand-logos {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: center;
-  margin-bottom: 22px;
-}
-
-.brand-logos img {
-  width: clamp(118px, 12vw, 172px);
-  height: 48px;
-  object-fit: contain;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.34));
-}
-
 .eyebrow,
 .section-kicker {
   display: inline-block;
@@ -274,16 +256,17 @@ main {
 .featured-card {
   min-width: 0;
   padding: 12px 12px 12px 14px;
-  border: 1px solid color-mix(in srgb, var(--violet), transparent 62%);
-  border-left: 4px solid var(--violet);
+  border: 1px solid color-mix(in srgb, var(--amber), transparent 36%);
+  border-left: 5px solid var(--amber);
   border-radius: 8px;
-  background: linear-gradient(135deg, #eef7ff, #ffffff);
+  background: linear-gradient(135deg, #fff1b8, #ffffff 72%);
+  box-shadow: 0 10px 24px rgba(240, 162, 2, 0.18);
 }
 
 .featured-card strong {
   display: block;
   margin-bottom: 5px;
-  color: var(--brand-blue);
+  color: #23324a;
   font-size: 0.86rem;
   line-height: 1.2;
   overflow-wrap: anywhere;
@@ -711,11 +694,11 @@ main {
 .timeline-row.is-featured {
   position: relative;
   padding: 6px 8px;
-  border: 1px solid color-mix(in srgb, var(--violet), transparent 45%);
-  border-left: 6px solid #f0a202;
+  border: 1px solid color-mix(in srgb, var(--amber), transparent 20%);
+  border-left: 7px solid var(--amber);
   border-radius: 8px;
-  background: linear-gradient(90deg, #eef7ff, #f3fbff 58%, #ffffff);
-  box-shadow: 0 9px 22px rgba(108, 92, 231, 0.15);
+  background: linear-gradient(90deg, #fff0a8, #ffffff 62%);
+  box-shadow: 0 10px 24px rgba(240, 162, 2, 0.22);
 }
 
 .timeline-row.is-featured .timeline-label strong::before {
@@ -740,7 +723,7 @@ main {
   margin-left: 8px;
   padding: 3px 8px;
   border-radius: 999px;
-  background: var(--brand-blue);
+  background: #f0a202;
   color: #fff !important;
   font-size: 0.64rem;
   font-weight: 900;
@@ -812,7 +795,7 @@ td.task-title {
 }
 
 tr.is-featured td {
-  background: #f7fbff;
+  background: #fff8df;
 }
 
 .featured-tag {
@@ -820,8 +803,8 @@ tr.is-featured td {
   margin-left: 8px;
   padding: 2px 6px;
   border-radius: 999px;
-  background: #e5f2ff;
-  color: var(--brand-blue);
+  background: #f0a202;
+  color: #ffffff;
   font-size: 0.68rem;
   font-weight: 850;
   text-transform: uppercase;
@@ -873,16 +856,6 @@ tr.is-featured td {
 
   .header-panel {
     min-width: 0;
-  }
-
-  .brand-logos {
-    gap: 8px;
-    margin-bottom: 18px;
-  }
-
-  .brand-logos img {
-    width: min(100%, 154px);
-    height: 44px;
   }
 
   .kpi-grid {
@@ -988,18 +961,6 @@ tr.is-featured td {
   .app-header > * {
     break-inside: avoid;
     page-break-inside: avoid;
-  }
-
-  .brand-logos {
-    gap: 4px;
-    margin-bottom: 4px;
-  }
-
-  .brand-logos img {
-    width: 34mm;
-    height: 12mm;
-    padding: 0;
-    filter: drop-shadow(0 1.5mm 2mm rgba(0, 0, 0, 0.22));
   }
 
   .app-header h1 {
