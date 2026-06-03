@@ -168,8 +168,6 @@ function renderSummary(items) {
   const active = items.filter((t) => t.active);
   const delayed = active.filter((t) => t.delayDays > 0).sort((a, b) => b.delayDays - a.delayDays);
   const dueSoon = active.filter((t) => t.daysToDue >= 0 && t.daysToDue <= 7).sort((a, b) => a.daysToDue - b.daysToDue);
-  const ownerLoad = Object.entries(countBy(active, "owner")).sort((a, b) => b[1] - a[1]);
-  const topOwner = ownerLoad[0] || ["Sin responsable", 0];
   const completed = items.filter((t) => t.status === "Completado");
   const closureRate = items.length ? (completed.length / items.length) * 100 : 0;
   const avgDelay = delayed.length ? sum(delayed, (t) => t.delayDays) / delayed.length : 0;
@@ -190,10 +188,6 @@ function renderSummary(items) {
       <span>${item.label}</span>
     </div>
   `).join("");
-
-  document.getElementById("summaryInsight").textContent =
-    `Prioridad gerencial: destrabar ${delayed.length} tareas demoradas y asegurar las ${dueSoon.length} entregas con vencimiento cercano. ` +
-    `La mayor carga se concentra en ${topOwner[0]} (${topOwner[1]} tareas activas), por lo que conviene revisar capacidad y reasignaciones antes de sumar nuevos requerimientos.`;
 
   document.getElementById("featuredTasks").innerHTML = `
     ${featuredInProcess.map((task) => `
