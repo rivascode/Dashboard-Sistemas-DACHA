@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Avances del Area de TI</title>
-  <link rel="stylesheet" href="styles.css?v=20260602-6">
+  <link rel="stylesheet" href="styles.css?v=20260603-1">
 </head>
 <body>
   <header class="app-header">
@@ -46,17 +46,6 @@
       </section>
 
       <section class="kpi-grid" id="kpiGrid" aria-label="Indicadores principales"></section>
-    </section>
-
-    <section class="panel timeline-panel">
-      <div class="panel-title">
-        <div>
-          <span class="section-kicker">Cronograma</span>
-          <h2>Linea de tiempo y riesgo</h2>
-        </div>
-        <span id="timelineRange" class="muted"></span>
-      </div>
-      <div id="timeline" class="timeline"></div>
     </section>
 
     <section class="analytics-grid">
@@ -105,6 +94,52 @@
       </article>
     </section>
 
+    <section class="panel management-panel">
+      <div class="panel-title">
+        <div>
+          <span class="section-kicker">Gerencia</span>
+          <h2>Tareas por revisar con gerencia</h2>
+        </div>
+      </div>
+      <div class="management-list">
+        <article class="management-item">
+          <span class="management-number">1</span>
+          <p>Renovacion de celular de Yuliana, ya que esta presentando fallas en el audio.</p>
+        </article>
+        <article class="management-item">
+          <span class="management-number">2</span>
+          <p>Se requiere upgrade de memoria RAM y procesador en los servidores de Claro y PAWA, porque la ejecucion de bots necesita mas procesamiento para el bot VUCE y el gestor documental.</p>
+        </article>
+        <article class="management-item">
+          <span class="management-number">3</span>
+          <p>Revisar la pagina web de Smartbots para publicacion: <a href="https://rivascode.github.io/Smartbots_web/" target="_blank" rel="noopener">https://rivascode.github.io/Smartbots_web/</a></p>
+        </article>
+        <article class="management-item">
+          <span class="management-number">4</span>
+          <p>Propuesta de 1 practicante para Smartbot, orientado a concretar ventas.</p>
+        </article>
+        <article class="management-item">
+          <span class="management-number">5</span>
+          <p>Aun esta pendiente la aceptacion de ventas de APM Terminals y Berry Haverts.</p>
+        </article>
+        <article class="management-item is-risk">
+          <span class="management-number">6</span>
+          <p>Problema con Diego: no entrega credenciales de RRSS, correo y web de Smartbots para proceder con el cambio en la estrategia de ventas.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel timeline-panel">
+      <div class="panel-title">
+        <div>
+          <span class="section-kicker">Cronograma</span>
+          <h2>Linea de tiempo y riesgo</h2>
+        </div>
+        <span id="timelineRange" class="muted"></span>
+      </div>
+      <div id="timeline" class="timeline"></div>
+    </section>
+
     <section class="panel table-panel">
       <div class="panel-title">
         <div>
@@ -113,6 +148,7 @@
         </div>
         <span id="tableCount" class="muted"></span>
       </div>
+      <div class="mobile-scroll-alert">En movil, desliza de lado esta seccion para ver el cuadro completo.</div>
       <div class="table-wrap">
         <table>
           <thead>
@@ -133,6 +169,6 @@
     </section>
   </main>
 
-  <script src="script.js?v=20260602-6"></script>
+  <script src="script.js?v=20260603-1"></script>
 </body>
 </html>
