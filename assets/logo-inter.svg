@@ -1,6 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 72" role="img" aria-labelledby="title">
   <title id="title">Empresa</title>
-  <rect width="220" height="72" rx="14" fill="#ffffff"/>
   <path d="M18 20 62 12v38l-44 9V20Z" fill="#005ca9"/>
   <path d="M62 14 82 20v34l-20-5V14Z" fill="#0093d6"/>
   <circle cx="43" cy="35" r="13" fill="#ffffff"/>

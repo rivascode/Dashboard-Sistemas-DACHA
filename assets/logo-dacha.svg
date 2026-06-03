@@ -1,6 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 72" role="img" aria-labelledby="title">
   <title id="title">Dacha</title>
-  <rect width="220" height="72" rx="14" fill="#ffffff"/>
   <rect x="10" y="10" width="52" height="52" rx="10" fill="#005ca9"/>
   <path d="M24 22h22c11 0 18 5 18 13 0 7-7 12-18 13l-11 1v-9l10-1c5 0 8-2 8-4s-3-4-8-4H24v31H14V22h10Z" fill="#ffffff"/>
   <path d="M24 40 51 57H34L24 49v8H14V32l10 8Z" fill="#ffffff"/>
