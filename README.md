@@ -15,6 +15,8 @@ El tablero resume el estado del portafolio de tareas TI con foco en:
 - tareas activas, completadas, demoradas y proximas a vencer;
 - carga de trabajo por responsable;
 - asignacion por area solicitante;
+- porcentaje y cantidad de tareas por categoria: Automatizacion, Desarrollo e Infraestructura;
+- tareas destacadas en proceso marcadas desde el archivo fuente;
 - distribucion por prioridad;
 - cronograma tipo Gantt por meses;
 - detalle operativo de tareas, fechas, responsable, estado, demora y avance estimado.
@@ -24,6 +26,7 @@ El tablero resume el estado del portafolio de tareas TI con foco en:
 1. **Resumen General**
    - Indicadores principales del portafolio.
    - Tareas atrasadas y por vencer.
+   - Tareas destacadas en proceso.
    - Leyenda de alertas:
      - Rojo: tareas vencidas.
      - Amarillo: tareas por vencer el plazo.
@@ -39,6 +42,7 @@ El tablero resume el estado del portafolio de tareas TI con foco en:
    - Responsables.
    - Areas.
    - Prioridad.
+   - Mix por categoria.
 
 4. **Detalle**
    - Tabla completa de tareas y seguimiento.
@@ -82,3 +86,5 @@ La columna `Progreso (%)` del archivo fuente estaba vacia. Por eso, el avance mo
 - tareas demoradas: marcadas con riesgo alto cuando superan la fecha fin estimada.
 
 Fecha de corte usada en el dashboard: **02/06/2026**.
+
+La columna `Tarea Destacada` permite resaltar tareas relevantes en el resumen, el cronograma y el detalle. En el resumen se muestran especificamente las tareas destacadas que estan **En Proceso**. En la version actual se incorporo la tarea **NUMERACIONES MARITIMAS**.
