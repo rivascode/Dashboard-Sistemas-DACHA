@@ -45,12 +45,7 @@ const parseDate = (value) => value ? new Date(`${value}T00:00:00`) : null;
 const dayMs = 24 * 60 * 60 * 1000;
 const diffDays = (a, b) => Math.round((a - b) / dayMs);
 const fmtDate = (value) => value ? parseDate(value).toLocaleDateString("es-PE", { day: "2-digit", month: "2-digit", year: "numeric" }) : "-";
-const fmtShortDate = (value) => {
-  if (!value) return "-";
-  const months = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"];
-  const date = parseDate(value);
-  return `${String(date.getDate()).padStart(2, "0")} ${months[date.getMonth()]}`;
-};
+const fmtShortDate = (value) => value ? parseDate(value).toLocaleDateString("es-PE", { day: "2-digit", month: "2-digit" }) : "-";
 const pct = (value) => `${Math.round(value)}%`;
 
 function enrich(task) {

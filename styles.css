@@ -858,31 +858,18 @@ tr.is-featured td {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .donut-wrap {
+  .donut-wrap,
+  .timeline-axis,
+  .timeline-row {
     grid-template-columns: 1fr;
   }
 
   .timeline {
     gap: 15px;
-    overflow-x: auto;
-    padding-bottom: 4px;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .timeline-axis,
-  .timeline-row {
-    grid-template-columns: 210px 430px 74px;
-    min-width: 740px;
-    gap: 10px;
   }
 
   .timeline-track {
     height: 18px;
-  }
-
-  .month-label {
-    padding-left: 6px;
-    font-size: 0.7rem;
   }
 
   .analytics-grid,
