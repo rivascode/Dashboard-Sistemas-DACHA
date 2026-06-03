@@ -750,8 +750,8 @@ main {
 }
 
 .table-wrap {
-  overflow-x: auto;
-  overflow-y: visible;
+  max-height: min(720px, 78vh);
+  overflow: auto;
   -webkit-overflow-scrolling: touch;
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -776,7 +776,7 @@ td {
 th {
   position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: 3;
   background: #f0ebe3;
   color: #4d4740;
   font-size: 0.76rem;

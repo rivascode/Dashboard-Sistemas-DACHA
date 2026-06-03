@@ -45,6 +45,7 @@ const parseDate = (value) => value ? new Date(`${value}T00:00:00`) : null;
 const dayMs = 24 * 60 * 60 * 1000;
 const diffDays = (a, b) => Math.round((a - b) / dayMs);
 const fmtDate = (value) => value ? parseDate(value).toLocaleDateString("es-PE", { day: "2-digit", month: "2-digit", year: "numeric" }) : "-";
+const fmtShortDate = (value) => value ? parseDate(value).toLocaleDateString("es-PE", { day: "2-digit", month: "2-digit" }) : "-";
 const pct = (value) => `${Math.round(value)}%`;
 
 function enrich(task) {
@@ -322,7 +323,7 @@ function renderTimeline(items) {
       <div class="timeline-row ${task.featured ? "is-featured" : ""}">
         <div class="timeline-label">
           <strong title="${task.title}">${task.title}${task.featured ? `<span class="timeline-featured-tag">Destacada</span>` : ""}</strong>
-          <span>${task.owner} · ${fmtDate(task.end)}</span>
+          <span>${task.owner} · Inicio ${fmtShortDate(task.start)} · Fin aprox. ${fmtShortDate(task.end)}</span>
         </div>
         <div class="timeline-track">
           <div class="timeline-bar" style="--accent:${accent}; left:${left}%; width:${width}%">
