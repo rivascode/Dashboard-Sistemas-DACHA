@@ -195,7 +195,6 @@ function renderSummary(items) {
     `La mayor carga se concentra en ${topOwner[0]} (${topOwner[1]} tareas activas), por lo que conviene revisar capacidad y reasignaciones antes de sumar nuevos requerimientos.`;
 
   document.getElementById("featuredTasks").innerHTML = `
-    <div class="featured-heading">Tareas destacadas en proceso</div>
     ${featuredInProcess.map((task) => `
       <div class="featured-card">
         <strong>${task.title}</strong>

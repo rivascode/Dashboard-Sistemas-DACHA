@@ -194,7 +194,7 @@ main {
 
 .executive-summary {
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(360px, 0.9fr);
+  grid-template-columns: minmax(0, 0.95fr) minmax(620px, 1.05fr);
   gap: 24px;
   margin-bottom: 18px;
   padding: 22px;
@@ -238,13 +238,10 @@ main {
 
 .featured-tasks {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
-  margin-top: 18px;
 }
 
 .featured-heading {
-  grid-column: 1 / -1;
   color: #332a74;
   font-size: 0.78rem;
   font-weight: 850;
@@ -254,10 +251,11 @@ main {
 
 .featured-card {
   min-width: 0;
-  padding: 12px;
-  border: 1px solid color-mix(in srgb, var(--violet), transparent 72%);
+  padding: 12px 12px 12px 14px;
+  border: 1px solid color-mix(in srgb, var(--violet), transparent 62%);
+  border-left: 4px solid var(--violet);
   border-radius: 8px;
-  background: #f5f3ff;
+  background: linear-gradient(135deg, #f8f5ff, #fff9df);
 }
 
 .featured-card strong {
@@ -304,6 +302,17 @@ main {
 .alerts-list {
   display: grid;
   gap: 10px;
+}
+
+.summary-lists {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  align-items: start;
+}
+
+.summary-list-block {
+  min-width: 0;
 }
 
 .alert-legend {
@@ -546,10 +555,33 @@ main {
 }
 
 .timeline-row.is-featured {
+  position: relative;
   padding: 6px 8px;
-  border: 1px solid color-mix(in srgb, var(--violet), transparent 76%);
+  border: 1px solid color-mix(in srgb, var(--violet), transparent 45%);
+  border-left: 6px solid #f0a202;
   border-radius: 8px;
-  background: #fbfaff;
+  background: linear-gradient(90deg, #fff4bf, #f3efff 58%, #ffffff);
+  box-shadow: 0 9px 22px rgba(108, 92, 231, 0.15);
+}
+
+.timeline-row.is-featured .timeline-label strong::before {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  margin-right: 7px;
+  border-radius: 50%;
+  background: #f0a202;
+  color: #fff;
+  content: "★";
+  font-size: 0.72rem;
+  line-height: 1;
+  vertical-align: 1px;
+}
+
+.timeline-row.is-featured .timeline-bar {
+  box-shadow: 0 0 0 2px rgba(240, 162, 2, 0.32);
 }
 
 .table-panel {
@@ -637,6 +669,10 @@ tr.is-featured td {
   }
 
   .executive-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .summary-lists {
     grid-template-columns: 1fr;
   }
 }
