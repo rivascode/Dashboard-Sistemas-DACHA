@@ -24,19 +24,19 @@ const tasks = [
   { id: "IT-021", featured: false, title: "REPORTE DE ORDENES PROCESADAS", area: "SMARTBOTS", owner: "HERNAN CALLE", category: "Desarrollo", priority: "Alta", status: "En Proceso", start: "2026-06-01", end: "2026-06-08", actual: "", notes: "" },
   { id: "IT-022", featured: true, title: "NUMERACIONES MARITIMAS", area: "Liquidacion Pre", owner: "GABRIEL ESCARATE", category: "Automatizacion", priority: "Alta", status: "En Proceso", start: "2026-06-01", end: "2026-09-30", actual: "", notes: "" },
   { id: "IT-023", featured: false, title: "ACTUALIZACION DOCUMENTACION VUCE", area: "SMARTBOTS", owner: "WILLIAM FLORES", category: "Automatizacion", priority: "Media", status: "En Proceso", start: "2026-06-02", end: "2026-06-08", actual: "", notes: "" },
-  { id: "IT-024", featured: true, title: "MODO DE SOLICITUD DE PAGOS", area: "Importacion", owner: "HERNAN CALLE", category: "Desarrollo", priority: "Alta", status: "En Proceso", start: "2026-06-02", end: "2026-09-15", actual: "", notes: "" },
+  { id: "IT-024", featured: true, title: "MODULO DE SOLICITUD DE PAGOS DE IMPORTACION Y SOLICITUDES GENERALES", area: "Importacion", owner: "HERNAN CALLE", category: "Desarrollo", priority: "Alta", status: "En Proceso", start: "2026-06-02", end: "2026-09-15", actual: "", notes: "" },
   { id: "IT-025", featured: false, title: "CREAR KPI DE IMPORTACIONES", area: "Importacion", owner: "LEONARDO RIVAS", category: "Infraestructura", priority: "Baja", status: "En Proceso", start: "2026-06-02", end: "2026-09-15", actual: "", notes: "" },
   { id: "IT-026", featured: false, title: "MODIFICACION DE PROCEDIMIENTO SISTEMAS - SIG", area: "SIG", owner: "LEONARDO RIVAS", category: "Infraestructura", priority: "Alta", status: "En Proceso", start: "2026-06-02", end: "2026-06-12", actual: "", notes: "" },
   { id: "IT-027", featured: false, title: "UPGRADE SERVIDORES. - CLARO/PAWA", area: "SISTEMAS", owner: "LEONARDO RIVAS", category: "Infraestructura", priority: "Alta", status: "En Proceso", start: "2026-06-02", end: "2026-06-08", actual: "", notes: "" }
 ];
 
 const colors = {
-  "Completado": "#16a34a",
-  "En Proceso": "#2563eb",
-  "Demorado": "#dc2626",
-  "Alta": "#dc2626",
-  "Media": "#f59e0b",
-  "Baja": "#059669"
+  "Completado": "#159f72",
+  "En Proceso": "#0093d6",
+  "Demorado": "#d1495b",
+  "Alta": "#d1495b",
+  "Media": "#f0a202",
+  "Baja": "#005ca9"
 };
 
 let sortState = { key: "delayDays", direction: "desc" };
@@ -127,20 +127,20 @@ function renderKpis(items) {
     category,
     value: categoryCounts[category] || 0,
     share: items.length ? ((categoryCounts[category] || 0) / items.length) * 100 : 0,
-    accent: ["#0f8b8d", "#6c5ce7", "#b5654d"][index]
+    accent: ["#0093d6", "#005ca9", "#232323"][index]
   }));
 
   const cards = [
-    { label: "Tareas activas", value: active.length, note: `${items.length} tareas reales en cartera`, accent: "#0f8b8d", icon: "▦", primary: true },
-    { label: "Completadas", value: completed.length, note: `${pct(completionRate)} de cierre`, accent: "#2f9e44", icon: "✓" },
+    { label: "Tareas activas", value: active.length, note: `${items.length} tareas reales en cartera`, accent: "#005ca9", icon: "▦", primary: true },
+    { label: "Completadas", value: completed.length, note: `${pct(completionRate)} de cierre`, accent: "#159f72", icon: "✓" },
     { label: "En demora", value: delayed.length, note: `${sum(delayed, (t) => t.delayDays)} dias acumulados`, accent: "#d1495b", icon: "!" },
     { label: "Vencen <= 7 dias", value: dueSoon.length, note: "Requieren seguimiento", accent: "#f0a202", icon: "◷" },
-    { label: "Alta prioridad activa", value: highPriority.length, note: "Foco de gerencia", accent: "#b5654d", icon: "↑" },
-    { label: "Avance estimado", value: pct(avgProgress), note: "Derivado por estado y fechas", accent: "#6c5ce7", icon: "%" },
+    { label: "Alta prioridad activa", value: highPriority.length, note: "Foco de gerencia", accent: "#232323", icon: "↑" },
+    { label: "Avance estimado", value: pct(avgProgress), note: "Derivado por estado y fechas", accent: "#21cde7", icon: "%" },
     {
       label: "Mix por categoria",
       value: "100%",
-      accent: "#242424",
+      accent: "#232323",
       icon: "≡",
       wide: true,
       custom: `
@@ -182,7 +182,7 @@ function renderSummary(items) {
     { value: active.length, label: "tareas activas", accent: colors["En Proceso"] },
     { value: delayed.length, label: `fuera de plazo (${Math.round(avgDelay)} dias prom.)`, accent: colors.Demorado },
     { value: pct(closureRate), label: "avance de cierre", accent: colors.Completado },
-    { value: featuredInProcess.length, label: "destacadas en proceso", accent: "#6c5ce7" }
+    { value: featuredInProcess.length, label: "destacadas en proceso", accent: "#005ca9" }
   ].map((item) => `
     <div class="summary-chip" style="--accent:${item.accent}">
       <strong>${item.value}</strong>
@@ -224,10 +224,10 @@ function renderDonut(items) {
     const value = counts[status];
     const start = cursor;
     cursor += (value / total) * 100;
-    return `${colors[status] || "#6f6b64"} ${start}% ${cursor}%`;
+    return `${colors[status] || "#687482"} ${start}% ${cursor}%`;
   });
 
-  document.getElementById("statusDonut").style.background = `conic-gradient(${segments.join(", ") || "#ece7de 0 100%"})`;
+  document.getElementById("statusDonut").style.background = `conic-gradient(${segments.join(", ") || "#e4edf5 0 100%"})`;
   document.getElementById("statusLegend").innerHTML = order.filter((status) => counts[status]).map((status) => {
     const value = counts[status];
     return `
@@ -244,7 +244,7 @@ function renderBars(targetId, counts, total, weighted) {
   const max = Math.max(1, ...entries.map(([, value]) => value));
 
   document.getElementById(targetId).innerHTML = entries.length ? entries.map(([label, value], index) => {
-    const accent = ["#2563eb", "#dc2626", "#f59e0b", "#7c3aed", "#059669", "#c026d3", "#ea580c"][index % 7];
+    const accent = ["#005ca9", "#0093d6", "#232323", "#21cde7", "#159f72", "#e31fc5", "#5b7288"][index % 7];
     const share = total ? (value / total) * 100 : 0;
     return `
       <div class="bar-row">
@@ -263,7 +263,7 @@ function renderOwnerRanking(items) {
   const total = Math.max(1, active.length);
 
   document.getElementById("ownerChart").innerHTML = counts.map(([owner, value], index) => {
-    const accent = ["#2563eb", "#7c3aed", "#dc2626", "#f59e0b", "#059669", "#c026d3"][index % 6];
+    const accent = ["#005ca9", "#0093d6", "#232323", "#21cde7", "#159f72", "#e31fc5"][index % 6];
     return `
       <div class="owner-row" style="--accent:${accent}">
         <span class="owner-rank">${index + 1}</span>
