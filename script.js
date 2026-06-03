@@ -130,16 +130,17 @@ function renderKpis(items) {
   }));
 
   const cards = [
-    { label: "Tareas activas", value: active.length, note: `${items.length} tareas reales en cartera`, accent: "#0f8b8d", primary: true },
-    { label: "Completadas", value: completed.length, note: `${pct(completionRate)} de cierre`, accent: "#2f9e44" },
-    { label: "En demora", value: delayed.length, note: `${sum(delayed, (t) => t.delayDays)} dias acumulados`, accent: "#d1495b" },
-    { label: "Vencen <= 7 dias", value: dueSoon.length, note: "Requieren seguimiento", accent: "#f0a202" },
-    { label: "Alta prioridad activa", value: highPriority.length, note: "Foco de gerencia", accent: "#b5654d" },
-    { label: "Avance estimado", value: pct(avgProgress), note: "Derivado por estado y fechas", accent: "#6c5ce7" },
+    { label: "Tareas activas", value: active.length, note: `${items.length} tareas reales en cartera`, accent: "#0f8b8d", icon: "▦", primary: true },
+    { label: "Completadas", value: completed.length, note: `${pct(completionRate)} de cierre`, accent: "#2f9e44", icon: "✓" },
+    { label: "En demora", value: delayed.length, note: `${sum(delayed, (t) => t.delayDays)} dias acumulados`, accent: "#d1495b", icon: "!" },
+    { label: "Vencen <= 7 dias", value: dueSoon.length, note: "Requieren seguimiento", accent: "#f0a202", icon: "◷" },
+    { label: "Alta prioridad activa", value: highPriority.length, note: "Foco de gerencia", accent: "#b5654d", icon: "↑" },
+    { label: "Avance estimado", value: pct(avgProgress), note: "Derivado por estado y fechas", accent: "#6c5ce7", icon: "%" },
     {
       label: "Mix por categoria",
       value: "100%",
       accent: "#242424",
+      icon: "≡",
       wide: true,
       custom: `
         <div class="category-mix">
@@ -156,7 +157,7 @@ function renderKpis(items) {
   ];
 
   document.getElementById("kpiGrid").innerHTML = cards.map((card) => `
-    <article class="kpi-card ${card.primary ? "kpi-primary" : ""} ${card.wide ? "kpi-wide" : ""}" style="--accent:${card.accent}">
+    <article class="kpi-card ${card.primary ? "kpi-primary" : ""} ${card.wide ? "kpi-wide" : ""}" style="--accent:${card.accent}" data-icon="${card.icon || ""}">
       <div class="kpi-label">${card.label}</div>
       ${card.custom || `<div class="kpi-value">${card.value}</div><div class="kpi-note">${card.note}</div>`}
     </article>
@@ -302,7 +303,7 @@ function renderTimeline(items) {
     return `
       <div class="timeline-row ${task.featured ? "is-featured" : ""}">
         <div class="timeline-label">
-          <strong title="${task.title}">${task.title}</strong>
+          <strong title="${task.title}">${task.title}${task.featured ? `<span class="timeline-featured-tag">Destacada</span>` : ""}</strong>
           <span>${task.owner} · ${fmtDate(task.end)}</span>
         </div>
         <div class="timeline-track">
