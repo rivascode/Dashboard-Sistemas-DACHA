@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Avances del Area de TI</title>
-  <link rel="stylesheet" href="styles.css?v=20260602-5">
+  <link rel="stylesheet" href="styles.css?v=20260602-6">
 </head>
 <body>
   <header class="app-header">
@@ -63,6 +63,17 @@
       <article class="panel">
         <div class="panel-title">
           <div>
+            <span class="section-kicker">Prioridad</span>
+            <h2>Foco ejecutivo</h2>
+          </div>
+        </div>
+        <div id="priorityChart" class="priority-bars"></div>
+        <div id="priorityList" class="compact-list"></div>
+      </article>
+
+      <article class="panel">
+        <div class="panel-title">
+          <div>
             <span class="section-kicker">Estado</span>
             <h2>Distribucion</h2>
           </div>
@@ -71,16 +82,6 @@
           <div id="statusDonut" class="donut" role="img" aria-label="Distribucion por estado"></div>
           <div id="statusLegend" class="legend"></div>
         </div>
-      </article>
-
-      <article class="panel">
-        <div class="panel-title">
-          <div>
-            <span class="section-kicker">Responsables</span>
-            <h2>Carga de trabajo</h2>
-          </div>
-        </div>
-        <div id="ownerChart" class="bar-list"></div>
       </article>
 
       <article class="panel">
@@ -96,12 +97,11 @@
       <article class="panel">
         <div class="panel-title">
           <div>
-            <span class="section-kicker">Prioridad</span>
-            <h2>Foco ejecutivo</h2>
+            <span class="section-kicker">Responsables</span>
+            <h2>Carga de trabajo</h2>
           </div>
         </div>
-        <div id="priorityChart" class="stacked"></div>
-        <div id="priorityList" class="compact-list"></div>
+        <div id="ownerChart" class="owner-ranking"></div>
       </article>
     </section>
 
@@ -133,6 +133,6 @@
     </section>
   </main>
 
-  <script src="script.js?v=20260602-3"></script>
+  <script src="script.js?v=20260602-6"></script>
 </body>
 </html>

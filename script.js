@@ -31,12 +31,12 @@ const tasks = [
 ];
 
 const colors = {
-  "Completado": "#2f9e44",
-  "En Proceso": "#0f8b8d",
-  "Demorado": "#d1495b",
-  "Alta": "#d1495b",
-  "Media": "#f0a202",
-  "Baja": "#0f8b8d"
+  "Completado": "#16a34a",
+  "En Proceso": "#2563eb",
+  "Demorado": "#dc2626",
+  "Alta": "#dc2626",
+  "Media": "#f59e0b",
+  "Baja": "#059669"
 };
 
 let sortState = { key: "delayDays", direction: "desc" };
@@ -105,7 +105,7 @@ function render() {
   renderKpis(filtered);
   renderSummary(filtered);
   renderDonut(filtered);
-  renderBars("ownerChart", countBy(filtered.filter((t) => t.active), "owner"), filtered.filter((t) => t.active).length, true);
+  renderOwnerRanking(filtered);
   renderBars("areaChart", countBy(filtered, "area"), filtered.length, false);
   renderPriority(filtered);
   renderTimeline(filtered);
@@ -223,20 +223,25 @@ function renderSummary(items) {
 function renderDonut(items) {
   const counts = countBy(items, "status");
   const total = Math.max(1, items.length);
+  const order = ["En Proceso", "Completado", "Demorado"];
   let cursor = 0;
-  const segments = Object.entries(counts).map(([status, value]) => {
+  const segments = order.filter((status) => counts[status]).map((status) => {
+    const value = counts[status];
     const start = cursor;
     cursor += (value / total) * 100;
     return `${colors[status] || "#6f6b64"} ${start}% ${cursor}%`;
   });
 
   document.getElementById("statusDonut").style.background = `conic-gradient(${segments.join(", ") || "#ece7de 0 100%"})`;
-  document.getElementById("statusLegend").innerHTML = Object.entries(counts).map(([status, value]) => `
+  document.getElementById("statusLegend").innerHTML = order.filter((status) => counts[status]).map((status) => {
+    const value = counts[status];
+    return `
     <div class="legend-item">
       <div class="legend-line"><span><i class="dot" style="--accent:${colors[status]}"></i>${status}</span><strong>${value}</strong></div>
       <div class="track"><div class="fill" style="--accent:${colors[status]}; width:${(value / total) * 100}%"></div></div>
     </div>
-  `).join("");
+  `;
+  }).join("");
 }
 
 function renderBars(targetId, counts, total, weighted) {
@@ -244,7 +249,7 @@ function renderBars(targetId, counts, total, weighted) {
   const max = Math.max(1, ...entries.map(([, value]) => value));
 
   document.getElementById(targetId).innerHTML = entries.length ? entries.map(([label, value], index) => {
-    const accent = ["#0f8b8d", "#d1495b", "#f0a202", "#6c5ce7", "#b5654d"][index % 5];
+    const accent = ["#2563eb", "#dc2626", "#f59e0b", "#7c3aed", "#059669", "#c026d3", "#ea580c"][index % 7];
     const share = total ? (value / total) * 100 : 0;
     return `
       <div class="bar-row">
@@ -256,26 +261,45 @@ function renderBars(targetId, counts, total, weighted) {
   }).join("") : `<div class="empty-state">Sin datos para mostrar.</div>`;
 }
 
+function renderOwnerRanking(items) {
+  const active = items.filter((t) => t.active);
+  const counts = Object.entries(countBy(active, "owner")).sort((a, b) => b[1] - a[1]);
+  const max = Math.max(1, ...counts.map(([, value]) => value));
+  const total = Math.max(1, active.length);
+
+  document.getElementById("ownerChart").innerHTML = counts.map(([owner, value], index) => {
+    const accent = ["#2563eb", "#7c3aed", "#dc2626", "#f59e0b", "#059669", "#c026d3"][index % 6];
+    return `
+      <div class="owner-row" style="--accent:${accent}">
+        <span class="owner-rank">${index + 1}</span>
+        <div class="bar-row">
+          <div class="owner-rank-line"><span>${owner}</span><strong>${value} activas</strong></div>
+          <div class="track"><div class="fill" style="--accent:${accent}; width:${(value / max) * 100}%"></div></div>
+          <span class="muted">${pct((value / total) * 100)} del total activo</span>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
 function renderPriority(items) {
   const counts = countBy(items.filter((t) => t.active), "priority");
   const total = Math.max(1, sum(Object.values(counts), (value) => value));
   const order = ["Alta", "Media", "Baja"];
 
-  document.getElementById("priorityChart").innerHTML = `
-    <div class="stacked-bar">
-      ${order.map((priority) => `<div class="stacked-segment" style="--accent:${colors[priority]}; width:${((counts[priority] || 0) / total) * 100}%"></div>`).join("")}
-    </div>
-  `;
-
-  document.getElementById("priorityList").innerHTML = order.map((priority) => {
+  document.getElementById("priorityChart").innerHTML = order.map((priority) => {
     const value = counts[priority] || 0;
+    const share = (value / total) * 100;
     return `
-      <div class="compact-row">
-        <div class="compact-line"><span><i class="dot" style="--accent:${colors[priority]}"></i>${priority}</span><strong>${value}</strong></div>
-        <div class="track"><div class="fill" style="--accent:${colors[priority]}; width:${(value / total) * 100}%"></div></div>
+      <div class="priority-row">
+        <span class="priority-label"><i class="dot" style="--accent:${colors[priority]}"></i>${priority}</span>
+        <div class="track"><div class="fill" style="--accent:${colors[priority]}; width:${share}%"></div></div>
+        <strong class="priority-value">${value}</strong>
       </div>
     `;
   }).join("");
+
+  document.getElementById("priorityList").innerHTML = `<span class="muted">${order.map((priority) => `${priority}: ${pct(((counts[priority] || 0) / total) * 100)}`).join(" · ")}</span>`;
 }
 
 function renderTimeline(items) {
