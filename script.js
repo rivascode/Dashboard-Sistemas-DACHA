@@ -42,10 +42,10 @@ const tasks = [
 ];
 
 const managementTasks = [
-  { id: 1, text: "Revision de los CV de practicantes de Smartbots", priority: "Urgente" },
-  { id: 2, text: "Revision con Diego de credenciales de RRHH", priority: "Urgente" },
-  { id: 3, text: "Compras de servicios con tarjeta de credito", priority: "Urgente" },
-  { id: 4, text: "Bono Equipo de desarrollo por seguimiento de bots", priority: "Media" }
+  { id: 1, text: "Revisar y validar los CV de candidatos practicantes para Smartbots.", priority: "Urgente" },
+  { id: 2, text: "Coordinar con Diego la entrega de credenciales de RRSS para continuar con la gestion comercial de Smartbots.", priority: "Urgente" },
+  { id: 3, text: "Definir el flujo de compra de servicios que requieren pago con tarjeta de credito.", priority: "Urgente" },
+  { id: 4, text: "Evaluar bono para el equipo de desarrollo por el seguimiento y soporte de bots.", priority: "Media" }
 ];
 
 const colors = {

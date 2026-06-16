@@ -587,25 +587,7 @@ main {
 }
 
 .area-panel .bar-list {
-  max-height: 340px;
-  overflow-y: auto;
-  padding-right: 6px;
-  scrollbar-width: thin;
-  scrollbar-color: #9db8cf #e4edf5;
-}
-
-.area-panel .bar-list::-webkit-scrollbar {
-  width: 8px;
-}
-
-.area-panel .bar-list::-webkit-scrollbar-track {
-  border-radius: 999px;
-  background: #e4edf5;
-}
-
-.area-panel .bar-list::-webkit-scrollbar-thumb {
-  border-radius: 999px;
-  background: #9db8cf;
+  padding-right: 0;
 }
 
 .other-areas {
