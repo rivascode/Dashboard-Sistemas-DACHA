@@ -198,6 +198,9 @@ function renderSummary(items) {
     return a.endDate - b.endDate;
   });
   const featuredInProcess = featured.filter((t) => t.status === "En Proceso");
+  const featuredInProcessDueSoon = featuredInProcess
+    .sort((a, b) => a.endDate - b.endDate)
+    .slice(0, 4);
 
   document.getElementById("summaryHighlights").innerHTML = [
     { value: active.length, label: "tareas activas", accent: colors["En Proceso"] },
@@ -214,12 +217,12 @@ function renderSummary(items) {
   renderProgressOutlook(items, { active, delayed, dueSoon, completed });
 
   document.getElementById("featuredTasks").innerHTML = `
-    ${featuredInProcess.map((task) => `
+    ${featuredInProcessDueSoon.map((task) => `
       <div class="featured-card">
         <strong>${task.title}</strong>
         <span>${task.category} · ${task.owner} · vence ${fmtDate(task.end)}</span>
       </div>
-    `).join("")}
+    `).join("") || `<div class="empty-state">No hay tareas destacadas en proceso.</div>`}
   `;
 
   const alerts = [
@@ -375,9 +378,11 @@ function renderPriority(items) {
 }
 
 function renderTimeline(items) {
-  const sorted = [...items].sort((a, b) => a.endDate - b.endDate);
-  const minStart = new Date(Math.min(...dataset.map((t) => t.startDate.getTime())));
-  const maxEnd = new Date(Math.max(...dataset.map((t) => t.endDate.getTime())));
+  const visibleItems = items.filter((task) => task.featured);
+  const sorted = [...visibleItems].sort((a, b) => a.endDate - b.endDate);
+  const rangeItems = visibleItems.length ? visibleItems : items;
+  const minStart = new Date(Math.min(...rangeItems.map((t) => t.startDate.getTime())));
+  const maxEnd = new Date(Math.max(...rangeItems.map((t) => t.endDate.getTime())));
   const range = Math.max(1, diffDays(maxEnd, minStart));
   document.getElementById("timelineRange").textContent = `${fmtDate(minStart.toISOString().slice(0, 10))} - ${fmtDate(maxEnd.toISOString().slice(0, 10))}`;
   const months = getMonths(minStart, maxEnd);
