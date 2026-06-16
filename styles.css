@@ -403,10 +403,16 @@ main {
 
 .analytics-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 18px;
-  align-items: start;
+  align-items: stretch;
   margin-bottom: 18px;
+}
+
+.analytics-grid > .panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 420px;
 }
 
 .panel {
@@ -429,13 +435,14 @@ main {
 
 .donut-wrap {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(170px, 240px) minmax(0, 1fr);
   gap: 18px;
-  justify-items: center;
+  align-items: center;
+  flex: 1;
 }
 
 .donut {
-  width: min(230px, 82%);
+  width: min(220px, 100%);
   aspect-ratio: 1;
   border-radius: 50%;
   background: conic-gradient(var(--green) 0 30%, var(--amber) 30% 70%, var(--red) 70% 100%);
@@ -460,6 +467,12 @@ main {
 .owner-ranking {
   display: grid;
   gap: 12px;
+}
+
+.priority-bars,
+.owner-ranking,
+.bar-list {
+  flex: 1;
 }
 
 .priority-row {
@@ -564,7 +577,7 @@ main {
 }
 
 .area-panel .bar-list {
-  max-height: 390px;
+  max-height: 300px;
   overflow-y: auto;
   padding-right: 6px;
   scrollbar-width: thin;
@@ -979,6 +992,11 @@ tr.is-featured td {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .donut-wrap {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
   .comparison-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -1032,6 +1050,10 @@ tr.is-featured td {
   .progress-outlook,
   .comparison-grid {
     grid-template-columns: 1fr;
+  }
+
+  .analytics-grid > .panel {
+    min-height: 0;
   }
 
   .management-list {
