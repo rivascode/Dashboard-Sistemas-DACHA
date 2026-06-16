@@ -218,6 +218,47 @@ main {
   margin: 18px 0;
 }
 
+.progress-outlook {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0 0 18px;
+}
+
+.outlook-card {
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid color-mix(in srgb, var(--accent), transparent 70%);
+  border-left: 5px solid var(--accent);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--accent), transparent 92%);
+}
+
+.outlook-card span {
+  display: block;
+  margin-bottom: 8px;
+  color: #3d4852;
+  font-size: 0.72rem;
+  font-weight: 850;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.outlook-card strong {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--accent);
+  font-size: 1.65rem;
+  line-height: 1;
+}
+
+.outlook-card p {
+  margin: 0;
+  color: #3d4852;
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+
 .summary-chip {
   min-width: 0;
   padding: 16px;
@@ -877,7 +918,8 @@ tr.is-featured td {
   }
 
   .analytics-grid,
-  .summary-highlights {
+  .summary-highlights,
+  .progress-outlook {
     grid-template-columns: 1fr;
   }
 
@@ -1017,7 +1059,17 @@ tr.is-featured td {
     margin: 8px 0;
   }
 
+  .progress-outlook {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+
   .summary-chip {
+    padding: 7px;
+  }
+
+  .outlook-card {
     padding: 7px;
   }
 
@@ -1025,8 +1077,14 @@ tr.is-featured td {
     font-size: 15pt;
   }
 
+  .outlook-card strong {
+    font-size: 13pt;
+  }
+
   .summary-chip span,
-  .featured-card span {
+  .featured-card span,
+  .outlook-card span,
+  .outlook-card p {
     font-size: 6.5pt;
   }
 

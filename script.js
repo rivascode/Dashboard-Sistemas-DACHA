@@ -1,42 +1,61 @@
-const TODAY = new Date("2026-06-02T00:00:00");
+const TODAY = new Date("2026-06-16T00:00:00");
 
 const tasks = [
   { id: "IT-001", featured: false, title: "MEJORAS DE MODULO CLIENTE", area: "Operaciones", owner: "REYSON FARFAN", category: "Desarrollo", priority: "Alta", status: "Completado", start: "2026-01-15", end: "2026-02-15", actual: "2026-04-01", notes: "FALTA PUBLICAR A LOS CLIENTES" },
   { id: "IT-002", featured: true, title: "PROVICION DOCUMENTO NO DOMICILADOS", area: "Contabilidad", owner: "WILLIAM FLORES", category: "Automatizacion", priority: "Media", status: "Completado", start: "2026-02-09", end: "2026-04-15", actual: "2026-04-15", notes: "PENDIENTE DE REU CON CONTABILIDAD" },
   { id: "IT-003", featured: true, title: "MODULO NOTAS CONTABLES", area: "Documentacion", owner: "REYSON FARFAN", category: "Desarrollo", priority: "Alta", status: "Completado", start: "2026-02-15", end: "2026-03-30", actual: "2026-06-01", notes: "" },
-  { id: "IT-004", featured: false, title: "BOT CONCILACIONES", area: "Contabilidad", owner: "FATIMA VILLAJULCA", category: "Automatizacion", priority: "Media", status: "Demorado", start: "2026-03-02", end: "2026-04-30", actual: "", notes: "PENDIENTE REU CON SERGIO" },
+  { id: "IT-004", featured: false, title: "BOT CONCILACIONES", area: "Contabilidad", owner: "FATIMA VILLAJULCA", category: "Automatizacion", priority: "Media", status: "Cancelado", start: "2026-03-02", end: "2026-04-30", actual: "", progressOverride: 10, notes: "PENDIENTE REU CON SERGIO" },
   { id: "IT-005", featured: false, title: "IMPLEMENTACION DE WHATSAPP - VUCE", area: "SMARTBOTS", owner: "WILLIAM FLORES", category: "Automatizacion", priority: "Alta", status: "Completado", start: "2026-03-09", end: "2026-04-27", actual: "2026-04-24", notes: "" },
-  { id: "IT-006", featured: true, title: "AUTOMATIZACION DE IE", area: "Operaciones", owner: "LEONARDO RIVAS", category: "Infraestructura", priority: "Alta", status: "En Proceso", start: "2026-03-19", end: "2026-08-31", actual: "", notes: "" },
-  { id: "IT-007", featured: false, title: "AUTOMATIZACION DE ORDEN DE DESPACHO", area: "Operaciones", owner: "LEONARDO RIVAS", category: "Infraestructura", priority: "Alta", status: "En Proceso", start: "2026-03-19", end: "2026-08-31", actual: "", notes: "" },
-  { id: "IT-008", featured: false, title: "BOT FACTURACION VENTAS CALLAO", area: "Contabilidad", owner: "FATIMA VILLAJULCA", category: "Automatizacion", priority: "Media", status: "En Proceso", start: "2026-04-01", end: "2026-06-15", actual: "", notes: "" },
-  { id: "IT-009", featured: true, title: "MIGRACION DE SERVIDOR - PAWA", area: "SISTEMAS", owner: "LEONARDO RIVAS", category: "Infraestructura", priority: "Alta", status: "Demorado", start: "2026-04-01", end: "2026-04-30", actual: "", notes: "" },
-  { id: "IT-010", featured: false, title: "DOCUMENTACION GESTOR DOCUMENTAL", area: "SMARTBOTS", owner: "GABRIEL ESCARATE", category: "Automatizacion", priority: "Alta", status: "En Proceso", start: "2026-04-20", end: "2026-06-15", actual: "", notes: "" },
+  { id: "IT-006", featured: true, title: "AUTOMATIZACION DE IE", area: "Operaciones", owner: "LEONARDO RIVAS", category: "Infraestructura", priority: "Alta", status: "En Proceso", start: "2026-03-19", end: "2026-08-31", actual: "", progressOverride: 15, notes: "CREANDO ANALISIS DE CORREOS" },
+  { id: "IT-007", featured: false, title: "AUTOMATIZACION DE ORDEN DE DESPACHO", area: "Operaciones", owner: "LEONARDO RIVAS", category: "Infraestructura", priority: "Alta", status: "Pendiente", start: "2026-03-19", end: "2026-08-31", actual: "", progressOverride: 0, notes: "" },
+  { id: "IT-008", featured: true, title: "BOT FACTURACION VENTAS CALLAO", area: "Contabilidad", owner: "FATIMA VILLAJULCA", category: "Automatizacion", priority: "Media", status: "Completado", start: "2026-04-01", end: "2026-06-15", actual: "2026-06-09", notes: "" },
+  { id: "IT-009", featured: true, title: "MIGRACION DE SERVIDOR - PAWA", area: "SISTEMAS", owner: "LEONARDO RIVAS", category: "Infraestructura", priority: "Alta", status: "En Proceso", start: "2026-07-18", end: "2026-07-15", actual: "", progressOverride: 25, notes: "" },
+  { id: "IT-010", featured: true, title: "DOCUMENTACION GESTOR DOCUMENTAL", area: "SMARTBOTS", owner: "GABRIEL ESCARATE", category: "Automatizacion", priority: "Alta", status: "En Proceso", start: "2026-04-20", end: "2026-06-30", actual: "", progressOverride: 50, notes: "" },
   { id: "IT-011", featured: false, title: "AUTOMATIZACION DE CUMPLEANOS DEL MES", area: "Recursos Humanos", owner: "HERNAN CALLE", category: "Desarrollo", priority: "Alta", status: "Completado", start: "2026-05-04", end: "2026-06-02", actual: "2026-06-02", notes: "" },
-  { id: "IT-012", featured: true, title: "MODULO DE GENERACION DE CONTRATO", area: "Recursos Humanos", owner: "HERNAN CALLE", category: "Desarrollo", priority: "Alta", status: "En Proceso", start: "2026-05-11", end: "2026-06-27", actual: "", notes: "" },
+  { id: "IT-012", featured: false, title: "MODULO DE GENERACION DE CONTRATO", area: "Recursos Humanos", owner: "HERNAN CALLE", category: "Desarrollo", priority: "Alta", status: "Completado", start: "2026-05-11", end: "2026-06-27", actual: "2026-06-19", progressOverride: 100, notes: "" },
   { id: "IT-013", featured: true, title: "DASHBOARD KPI REGULARIZACION", area: "Documentacion", owner: "REYSON FARFAN", category: "Desarrollo", priority: "Media", status: "Completado", start: "2026-05-18", end: "2026-05-28", actual: "2026-06-02", notes: "" },
-  { id: "IT-014", featured: false, title: "IMPLEMENTACION DE VPN", area: "SISTEMAS", owner: "LEONARDO RIVAS", category: "Infraestructura", priority: "Alta", status: "En Proceso", start: "2026-05-23", end: "2026-06-13", actual: "", notes: "" },
-  { id: "IT-015", featured: false, title: "ADAPTAR RRHH A MULTIEMPRESAS", area: "Recursos Humanos", owner: "HERNAN CALLE", category: "Desarrollo", priority: "Media", status: "En Proceso", start: "2026-05-25", end: "2026-07-31", actual: "", notes: "" },
-  { id: "IT-016", featured: true, title: "REGISTRO DE MULTA PENDIENTE DE RESPONSABLES", area: "Recursos Humanos", owner: "HERNAN CALLE", category: "Desarrollo", priority: "Alta", status: "En Proceso", start: "2026-05-25", end: "2026-07-31", actual: "", notes: "" },
-  { id: "IT-017", featured: false, title: "CORRECCION TARIFARIO ITURRI APP", area: "Finanzas", owner: "HERNAN CALLE", category: "Desarrollo", priority: "Baja", status: "En Proceso", start: "2026-06-01", end: "2026-06-30", actual: "", notes: "" },
-  { id: "IT-018", featured: false, title: "REGISTRO DE CORRECCION BL POST EMBARQUE", area: "Matricez", owner: "REYSON FARFAN", category: "Desarrollo", priority: "Alta", status: "En Proceso", start: "2026-06-01", end: "2026-06-12", actual: "", notes: "" },
-  { id: "IT-019", featured: false, title: "RENOVACION DE STATUS DOCUMENTARIO", area: "Documentacion", owner: "REYSON FARFAN", category: "Desarrollo", priority: "Baja", status: "En Proceso", start: "2026-06-01", end: "2026-06-30", actual: "", notes: "PENDIENTE DE FORMATO POR C.A" },
-  { id: "IT-020", featured: false, title: "MODIFICACION DE TEXTO CORREO REGULARIZACION", area: "Documentacion", owner: "REYSON FARFAN", category: "Desarrollo", priority: "Alta", status: "En Proceso", start: "2026-06-01", end: "2026-06-03", actual: "", notes: "" },
-  { id: "IT-021", featured: false, title: "REPORTE DE ORDENES PROCESADAS", area: "SMARTBOTS", owner: "HERNAN CALLE", category: "Desarrollo", priority: "Alta", status: "En Proceso", start: "2026-06-01", end: "2026-06-08", actual: "", notes: "" },
-  { id: "IT-022", featured: true, title: "NUMERACIONES MARITIMAS", area: "Liquidacion Pre", owner: "GABRIEL ESCARATE", category: "Automatizacion", priority: "Alta", status: "En Proceso", start: "2026-06-01", end: "2026-09-30", actual: "", notes: "" },
-  { id: "IT-023", featured: false, title: "ACTUALIZACION DOCUMENTACION VUCE", area: "SMARTBOTS", owner: "WILLIAM FLORES", category: "Automatizacion", priority: "Media", status: "En Proceso", start: "2026-06-02", end: "2026-06-08", actual: "", notes: "" },
-  { id: "IT-024", featured: true, title: "MODULO DE SOLICITUD DE PAGOS DE IMPORTACION Y SOLICITUDES GENERALES", area: "Importacion", owner: "HERNAN CALLE", category: "Desarrollo", priority: "Alta", status: "En Proceso", start: "2026-06-02", end: "2026-09-15", actual: "", notes: "" },
-  { id: "IT-025", featured: false, title: "CREAR KPI DE IMPORTACIONES", area: "Importacion", owner: "LEONARDO RIVAS", category: "Infraestructura", priority: "Baja", status: "En Proceso", start: "2026-06-02", end: "2026-09-15", actual: "", notes: "" },
-  { id: "IT-026", featured: false, title: "MODIFICACION DE PROCEDIMIENTO SISTEMAS - SIG", area: "SIG", owner: "LEONARDO RIVAS", category: "Infraestructura", priority: "Alta", status: "En Proceso", start: "2026-06-02", end: "2026-06-12", actual: "", notes: "" },
-  { id: "IT-027", featured: false, title: "UPGRADE SERVIDORES. - CLARO/PAWA", area: "SISTEMAS", owner: "LEONARDO RIVAS", category: "Infraestructura", priority: "Alta", status: "En Proceso", start: "2026-06-02", end: "2026-06-08", actual: "", notes: "" }
+  { id: "IT-014", featured: true, title: "IMPLEMENTACION DE VPN", area: "SISTEMAS", owner: "LEONARDO RIVAS", category: "Infraestructura", priority: "Alta", status: "Completado", start: "2026-05-23", end: "2026-06-19", actual: "2026-06-15", progressOverride: 100, notes: "" },
+  { id: "IT-015", featured: false, title: "ADAPTAR RRHH A MULTIEMPRESAS", area: "Recursos Humanos", owner: "HERNAN CALLE", category: "Desarrollo", priority: "Media", status: "Completado", start: "2026-05-25", end: "2026-07-31", actual: "2026-07-06", progressOverride: 100, notes: "" },
+  { id: "IT-016", featured: true, title: "REGISTRO DE MULTA PENDIENTE DE RESPONSABLES", area: "Recursos Humanos", owner: "HERNAN CALLE", category: "Desarrollo", priority: "Alta", status: "En Proceso", start: "2026-05-25", end: "2026-07-31", actual: "", progressOverride: 50, notes: "" },
+  { id: "IT-017", featured: false, title: "CORRECCION TARIFARIO ITURRI APP", area: "Finanzas", owner: "HERNAN CALLE", category: "Desarrollo", priority: "Baja", status: "En Proceso", start: "2026-06-01", end: "2026-06-30", actual: "", progressOverride: 0, notes: "" },
+  { id: "IT-018", featured: true, title: "REGISTRO DE CORRECCION BL POST EMBARQUE", area: "Matricez", owner: "REYSON FARFAN", category: "Desarrollo", priority: "Alta", status: "Completado", start: "2026-06-01", end: "2026-06-12", actual: "2026-06-11", progressOverride: 100, notes: "" },
+  { id: "IT-019", featured: false, title: "RENOVACION DE STATUS DOCUMENTARIO", area: "Documentacion", owner: "REYSON FARFAN", category: "Desarrollo", priority: "Baja", status: "En Proceso", start: "2026-06-01", end: "2026-06-30", actual: "", progressOverride: 40, notes: "" },
+  { id: "IT-020", featured: false, title: "MODIFICACION DE TEXTO CORREO REGULARIZACION", area: "Documentacion", owner: "REYSON FARFAN", category: "Desarrollo", priority: "Alta", status: "Completado", start: "2026-06-01", end: "2026-06-03", actual: "2026-06-03", progressOverride: 100, notes: "" },
+  { id: "IT-021", featured: false, title: "REPORTE DE ORDENES PROCESADAS", area: "SMARTBOTS", owner: "HERNAN CALLE", category: "Desarrollo", priority: "Alta", status: "Completado", start: "2026-06-01", end: "2026-06-08", actual: "2026-06-12", progressOverride: 100, notes: "" },
+  { id: "IT-022", featured: true, title: "NUMERACIONES MARITIMAS", area: "Liquidacion Pre", owner: "GABRIEL ESCARATE", category: "Automatizacion", priority: "Alta", status: "En Proceso", start: "2026-06-01", end: "2026-09-30", actual: "", progressOverride: 15, notes: "" },
+  { id: "IT-023", featured: false, title: "ACTUALIZACION DOCUMENTACION VUCE", area: "SMARTBOTS", owner: "WILLIAM FLORES", category: "Automatizacion", priority: "Media", status: "Completado", start: "2026-06-02", end: "2026-06-08", actual: "2026-06-10", progressOverride: 100, notes: "" },
+  { id: "IT-024", featured: false, title: "MODO DE SOLICITUD DE PAGOS", area: "Importacion", owner: "HERNAN CALLE", category: "Desarrollo", priority: "Alta", status: "En Proceso", start: "2026-06-02", end: "2026-09-15", actual: "", progressOverride: 0, notes: "" },
+  { id: "IT-025", featured: false, title: "CREAR KPI DE IMPORTACIONES", area: "Importacion", owner: "LEONARDO RIVAS", category: "Infraestructura", priority: "Baja", status: "En Proceso", start: "2026-06-02", end: "2026-09-15", actual: "", progressOverride: 0, notes: "" },
+  { id: "IT-026", featured: true, title: "MODIFICACION DE PROCEDIMIENTO SISTEMAS - SIG", area: "SIG", owner: "LEONARDO RIVAS", category: "Infraestructura", priority: "Alta", status: "Completado", start: "2026-06-02", end: "2026-06-12", actual: "2026-06-16", progressOverride: 100, notes: "" },
+  { id: "IT-027", featured: true, title: "UPGRADE SERVIDORES. - CLARO/PAWA", area: "SISTEMAS", owner: "LEONARDO RIVAS", category: "Infraestructura", priority: "Alta", status: "Completado", start: "2026-06-02", end: "2026-06-08", actual: "2026-06-09", progressOverride: 100, notes: "" },
+  { id: "IT-028", featured: false, title: "MODIFICACION DE CORREO DAM REGULARIZADA", area: "Documentacion", owner: "REYSON FARFAN", category: "Desarrollo", priority: "Media", status: "Completado", start: "2026-06-12", end: "2026-06-15", actual: "2026-06-02", progressOverride: 100, notes: "" },
+  { id: "IT-029", featured: false, title: "ANADIR TARJETA DE DESPACHOS AEREOS VISOR", area: "Clientes", owner: "REYSON FARFAN", category: "Desarrollo", priority: "Baja", status: "Completado", start: "2026-06-11", end: "2026-06-17", actual: "2026-06-12", progressOverride: 100, notes: "" },
+  { id: "IT-030", featured: true, title: "MEJORAS DE REGISTRO DE CLIENTES", area: "Clientes", owner: "REYSON FARFAN", category: "Desarrollo", priority: "Media", status: "En Proceso", start: "2026-06-12", end: "2026-06-19", actual: "", progressOverride: 30, notes: "" },
+  { id: "IT-031", featured: true, title: "MODULO DE SOLICITUDES DE PERMISOS", area: "Recursos Humanos", owner: "HERNAN CALLE", category: "Desarrollo", priority: "Media", status: "En Proceso", start: "2026-06-18", end: "2026-06-26", actual: "", progressOverride: 80, notes: "" },
+  { id: "IT-032", featured: true, title: "CREACION DE CORREO DE ONBOARDING TRABJADOR NUEVO", area: "Recursos Humanos", owner: "HERNAN CALLE", category: "Desarrollo", priority: "Alta", status: "En Proceso", start: "2026-06-12", end: "2026-06-19", actual: "", progressOverride: 30, notes: "" },
+  { id: "IT-033", featured: false, title: "CORREO DE VENCIMIENTO DE CONTRATOS", area: "Recursos Humanos", owner: "HERNAN CALLE", category: "Desarrollo", priority: "Media", status: "Completado", start: "2026-06-12", end: "2026-06-19", actual: "2026-06-15", progressOverride: 100, notes: "" },
+  { id: "IT-034", featured: true, title: "ALERTA DE CONTENEDORES VS MANIFIESTO", area: "Operaciones", owner: "FATIMA VILLAJULCA", category: "Automatizacion", priority: "Media", status: "En Proceso", start: "2026-06-11", end: "2026-06-30", actual: "", progressOverride: 20, notes: "" },
+  { id: "IT-035", featured: false, title: "MODIFICACION DE TRACKIN DE DAM", area: "Clientes", owner: "REYSON FARFAN", category: "Desarrollo", priority: "Media", status: "En Proceso", start: "2026-06-12", end: "2026-06-30", actual: "", progressOverride: 40, notes: "" },
+  { id: "IT-036", featured: true, title: "PRACTICANTE SMARBOTS", area: "SMARTBOTS", owner: "LEONARDO RIVAS", category: "Infraestructura", priority: "Media", status: "En Proceso", start: "2026-05-01", end: "2026-06-30", actual: "", progressOverride: 50, notes: "" },
+  { id: "IT-037", featured: true, title: "WEB RRSS SMARTBOT", area: "SMARTBOTS", owner: "LEONARDO RIVAS", category: "Infraestructura", priority: "Media", status: "En Proceso", start: "2026-05-01", end: "2026-06-30", actual: "", progressOverride: 90, notes: "" }
 ];
 
 const colors = {
   "Completado": "#159f72",
   "En Proceso": "#0093d6",
   "Demorado": "#d1495b",
+  "Pendiente": "#f0a202",
+  "Cancelado": "#687482",
   "Alta": "#d1495b",
   "Media": "#f0a202",
   "Baja": "#005ca9"
+};
+
+const previousPortfolio = {
+  cut: "2026-06-02",
+  completed: 6,
+  delayed: 2,
+  progress: 47
 };
 
 let sortState = { key: "delayDays", direction: "desc" };
@@ -55,13 +74,15 @@ function enrich(task) {
   const duration = Math.max(1, diffDays(end, start));
   const elapsed = Math.max(0, diffDays(TODAY, start));
   const scheduleProgress = Math.min(95, Math.max(5, (elapsed / duration) * 100));
-  const progress = task.status === "Completado" ? 100 : scheduleProgress;
-  const delayDays = task.status === "Completado"
+  const inactive = task.status === "Completado" || task.status === "Cancelado";
+  const hasProgressOverride = typeof task.progressOverride === "number";
+  const progress = task.status === "Completado" ? 100 : hasProgressOverride ? task.progressOverride : scheduleProgress;
+  const delayDays = inactive
     ? Math.max(0, diffDays(actual, end))
     : Math.max(0, diffDays(TODAY, end));
   const daysToDue = diffDays(end, TODAY);
-  const risk = task.status === "Demorado" || delayDays > 0 ? "Alto" : daysToDue <= 7 ? "Medio" : "Normal";
-  const active = task.status !== "Completado";
+  const risk = task.status === "Cancelado" ? "Cerrado" : task.status === "Demorado" || delayDays > 0 ? "Alto" : daysToDue <= 7 ? "Medio" : "Normal";
+  const active = !inactive;
 
   return { ...task, startDate: start, endDate: end, actualDate: actual, duration, progress, delayDays, daysToDue, risk, active };
 }
@@ -190,6 +211,8 @@ function renderSummary(items) {
     </div>
   `).join("");
 
+  renderProgressOutlook(items, { active, delayed, dueSoon, completed });
+
   document.getElementById("featuredTasks").innerHTML = `
     ${featuredInProcess.map((task) => `
       <div class="featured-card">
@@ -215,10 +238,64 @@ function renderSummary(items) {
   `).join("") : `<div class="empty-state">No hay tareas atrasadas ni proximas a vencer.</div>`;
 }
 
+function renderProgressOutlook(items, summary) {
+  const previousCut = parseDate(previousPortfolio.cut);
+  const avgProgress = items.length ? sum(items, (t) => t.progress) / items.length : 0;
+  const progressDelta = Math.round(avgProgress - previousPortfolio.progress);
+  const completedDelta = summary.completed.length - previousPortfolio.completed;
+  const delayedDelta = summary.delayed.length - previousPortfolio.delayed;
+  const completedSinceCut = items.filter((task) =>
+    task.status === "Completado" &&
+    task.actualDate &&
+    task.actualDate > previousCut &&
+    task.actualDate <= TODAY
+  );
+  const improvedAreas = Object.entries(countBy(completedSinceCut, "area"))
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3)
+    .map(([area, value]) => `${area} (${value})`)
+    .join(", ") || "Sin cierres registrados dentro del corte";
+
+  const outlook = [
+    {
+      label: "Avance vs. corte anterior",
+      value: `${progressDelta >= 0 ? "+" : ""}${progressDelta} pp`,
+      note: `Portafolio en ${pct(avgProgress)} frente a ${previousPortfolio.progress}% del 02/06/2026.`,
+      accent: progressDelta >= 0 ? colors.Completado : colors.Demorado
+    },
+    {
+      label: "Cierres nuevos",
+      value: `+${Math.max(0, completedDelta)}`,
+      note: `${summary.completed.length} completadas en total; areas con avance: ${improvedAreas}.`,
+      accent: colors.Completado
+    },
+    {
+      label: "Demoras actuales",
+      value: summary.delayed.length,
+      note: delayedDelta < 0 ? `Mejora de ${Math.abs(delayedDelta)} tarea(s) demoradas vs. corte anterior.` : delayedDelta === 0 ? "Sin variacion frente al corte anterior." : `Aumenta en ${delayedDelta} tarea(s) vs. corte anterior.`,
+      accent: summary.delayed.length ? colors.Demorado : colors.Completado
+    },
+    {
+      label: "Riesgo inmediato",
+      value: summary.dueSoon.length,
+      note: "Entregas activas con vencimiento dentro de 7 dias.",
+      accent: colors.Media
+    }
+  ];
+
+  document.getElementById("progressOutlook").innerHTML = outlook.map((item) => `
+    <article class="outlook-card" style="--accent:${item.accent}">
+      <span>${item.label}</span>
+      <strong>${item.value}</strong>
+      <p>${item.note}</p>
+    </article>
+  `).join("");
+}
+
 function renderDonut(items) {
   const counts = countBy(items, "status");
   const total = Math.max(1, items.length);
-  const order = ["En Proceso", "Completado", "Demorado"];
+  const order = ["En Proceso", "Completado", "Pendiente", "Cancelado", "Demorado"];
   let cursor = 0;
   const segments = order.filter((status) => counts[status]).map((status) => {
     const value = counts[status];
