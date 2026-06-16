@@ -896,6 +896,26 @@ main {
   box-shadow: 0 0 0 2px rgba(240, 162, 2, 0.32);
 }
 
+.timeline-row.is-completed-featured {
+  border-color: color-mix(in srgb, var(--green), transparent 28%);
+  border-left-color: var(--green);
+  background: linear-gradient(90deg, #dff8ed, #ffffff 62%);
+  box-shadow: 0 10px 24px rgba(21, 159, 114, 0.18);
+}
+
+.timeline-row.is-completed-featured .timeline-label strong::before {
+  background: var(--green);
+  content: "✓";
+}
+
+.timeline-row.is-completed-featured .timeline-featured-tag {
+  background: var(--green);
+}
+
+.timeline-row.is-completed-featured .timeline-bar {
+  box-shadow: 0 0 0 2px rgba(21, 159, 114, 0.26);
+}
+
 .table-panel {
   margin-top: 18px;
 }

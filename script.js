@@ -451,10 +451,13 @@ function renderTimeline(items) {
     const left = Math.max(0, (diffDays(task.startDate, minStart) / range) * 100);
     const width = Math.max(2, (task.duration / range) * 100);
     const accent = task.delayDays > 0 && task.active ? colors.Demorado : colors[task.status];
+    const completedFeatured = task.featured && task.status === "Completado";
+    const featuredTag = completedFeatured ? "Completada" : "Destacada";
+    const riskLabel = completedFeatured ? "Completada" : task.risk;
     return `
-      <div class="timeline-row ${task.featured ? "is-featured" : ""}">
+      <div class="timeline-row ${task.featured ? "is-featured" : ""} ${completedFeatured ? "is-completed-featured" : ""}">
         <div class="timeline-label">
-          <strong title="${task.title}">${task.title}${task.featured ? `<span class="timeline-featured-tag">Destacada</span>` : ""}</strong>
+          <strong title="${task.title}">${task.title}${task.featured ? `<span class="timeline-featured-tag">${featuredTag}</span>` : ""}</strong>
           <span>${task.owner} · Inicio ${fmtShortDate(task.start)} · Fin aprox. ${fmtShortDate(task.end)}</span>
         </div>
         <div class="timeline-track">
@@ -462,7 +465,7 @@ function renderTimeline(items) {
             <div class="timeline-progress" style="width:${task.progress}%"></div>
           </div>
         </div>
-        <span class="status-pill" style="--accent:${accent}">${task.risk}</span>
+        <span class="status-pill" style="--accent:${accent}">${riskLabel}</span>
       </div>
     `;
   }).join("") : `<div class="empty-state">Sin tareas en la seleccion actual.</div>`;
