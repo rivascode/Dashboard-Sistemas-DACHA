@@ -53,8 +53,11 @@ const colors = {
 
 const previousPortfolio = {
   cut: "2026-06-02",
+  total: 27,
+  active: 21,
   completed: 6,
   delayed: 2,
+  dueSoon: 4,
   progress: 47
 };
 
@@ -126,6 +129,7 @@ function render() {
   const filtered = getFiltered();
   renderKpis(filtered);
   renderSummary(filtered);
+  renderComparison(filtered);
   renderDonut(filtered);
   renderOwnerRanking(filtered);
   renderBars("areaChart", countBy(filtered, "area"), filtered.length, false);
@@ -184,6 +188,52 @@ function renderKpis(items) {
       ${card.custom || `<div class="kpi-value">${card.value}</div><div class="kpi-note">${card.note}</div>`}
     </article>
   `).join("");
+}
+
+function renderComparison(items) {
+  const active = items.filter((t) => t.active);
+  const completed = items.filter((t) => t.status === "Completado");
+  const delayed = active.filter((t) => t.delayDays > 0);
+  const dueSoon = active.filter((t) => t.daysToDue >= 0 && t.daysToDue <= 7);
+  const avgProgress = items.length ? sum(items, (t) => t.progress) / items.length : 0;
+  const current = {
+    total: items.length,
+    active: active.length,
+    completed: completed.length,
+    delayed: delayed.length,
+    dueSoon: dueSoon.length,
+    progress: Math.round(avgProgress)
+  };
+  const stats = [
+    { label: "Avance estimado", previous: previousPortfolio.progress, current: current.progress, suffix: "%", positive: "up", accent: colors.Completado },
+    { label: "Completadas", previous: previousPortfolio.completed, current: current.completed, suffix: "", positive: "up", accent: colors.Completado },
+    { label: "Demoradas", previous: previousPortfolio.delayed, current: current.delayed, suffix: "", positive: "down", accent: current.delayed ? colors.Demorado : colors.Completado },
+    { label: "Vencen <= 7 dias", previous: previousPortfolio.dueSoon, current: current.dueSoon, suffix: "", positive: "down", accent: colors.Media },
+    { label: "Tareas activas", previous: previousPortfolio.active, current: current.active, suffix: "", positive: "down", accent: colors["En Proceso"] },
+    { label: "Cartera total", previous: previousPortfolio.total, current: current.total, suffix: "", positive: "neutral", accent: "#232323" }
+  ];
+
+  document.getElementById("comparisonStats").innerHTML = stats.map((item) => {
+    const delta = item.current - item.previous;
+    const improved = item.positive === "neutral" ? delta !== 0 : item.positive === "up" ? delta >= 0 : delta <= 0;
+    const max = Math.max(item.previous, item.current, 1);
+    return `
+      <article class="comparison-card" style="--accent:${item.accent}">
+        <div class="comparison-head">
+          <span>${item.label}</span>
+          <strong class="${improved ? "is-good" : "is-watch"}">${delta >= 0 ? "+" : ""}${delta}${item.suffix}</strong>
+        </div>
+        <div class="comparison-values">
+          <span>Antes <b>${item.previous}${item.suffix}</b></span>
+          <span>Ahora <b>${item.current}${item.suffix}</b></span>
+        </div>
+        <div class="comparison-bars">
+          <div class="comparison-bar is-previous" style="width:${(item.previous / max) * 100}%"></div>
+          <div class="comparison-bar is-current" style="width:${(item.current / max) * 100}%"></div>
+        </div>
+      </article>
+    `;
+  }).join("");
 }
 
 function renderSummary(items) {
