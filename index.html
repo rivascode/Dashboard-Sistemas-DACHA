@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#005ca9">
   <title>Avances del Area de TI</title>
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-  <link rel="stylesheet" href="styles.css?v=20260616-5">
+  <link rel="stylesheet" href="styles.css?v=20260616-6">
 </head>
 <body>
   <header class="app-header">
@@ -44,6 +44,15 @@
               <div id="featuredTasks" class="featured-tasks"></div>
             </div>
           </div>
+          <section class="management-panel">
+            <div class="panel-title">
+              <div>
+                <span class="section-kicker">Gerencia</span>
+                <h2>Tareas por revisar con gerencia</h2>
+              </div>
+            </div>
+            <div id="managementList" class="management-list"></div>
+          </section>
         </article>
       </section>
 
@@ -62,7 +71,7 @@
     </section>
 
     <section class="analytics-grid">
-      <article class="panel area-panel">
+      <article class="panel priority-panel">
         <div class="panel-title">
           <div>
             <span class="section-kicker">Prioridad</span>
@@ -73,7 +82,7 @@
         <div id="priorityList" class="compact-list"></div>
       </article>
 
-      <article class="panel">
+      <article class="panel status-panel">
         <div class="panel-title">
           <div>
             <span class="section-kicker">Estado</span>
@@ -86,7 +95,7 @@
         </div>
       </article>
 
-      <article class="panel">
+      <article class="panel area-panel">
         <div class="panel-title">
           <div>
             <span class="section-kicker">Areas</span>
@@ -96,7 +105,7 @@
         <div id="areaChart" class="bar-list"></div>
       </article>
 
-      <article class="panel">
+      <article class="panel owner-panel">
         <div class="panel-title">
           <div>
             <span class="section-kicker">Responsables</span>
@@ -105,41 +114,6 @@
         </div>
         <div id="ownerChart" class="owner-ranking"></div>
       </article>
-    </section>
-
-    <section class="panel management-panel">
-      <div class="panel-title">
-        <div>
-          <span class="section-kicker">Gerencia</span>
-          <h2>Tareas por revisar con gerencia</h2>
-        </div>
-      </div>
-      <div class="management-list">
-        <article class="management-item">
-          <span class="management-number">1</span>
-          <p>Evaluar la renovacion del celular asignado a Yuliana, debido a fallas recurrentes en el audio que afectan su comunicacion operativa.</p>
-        </article>
-        <article class="management-item">
-          <span class="management-number">2</span>
-          <p>Aprobar el upgrade de memoria RAM y procesador en los servidores de Claro y PAWA para asegurar la ejecucion estable del bot VUCE y del gestor documental.</p>
-        </article>
-        <article class="management-item">
-          <span class="management-number">3</span>
-          <p>Validar la pagina web de Smartbots antes de su publicacion oficial: <a href="https://rivascode.github.io/Smartbots_web/" target="_blank" rel="noopener">https://rivascode.github.io/Smartbots_web/</a></p>
-        </article>
-        <article class="management-item">
-          <span class="management-number">4</span>
-          <p>Evaluar la incorporacion de 1 practicante para Smartbots, enfocado en coordinar prospectos, concretar reuniones comerciales y dar seguimiento a oportunidades.</p>
-        </article>
-        <article class="management-item">
-          <span class="management-number">5</span>
-          <p>Dar seguimiento a la aceptacion comercial pendiente de APM Terminals y Berry Haverts para definir los proximos pasos de venta.</p>
-        </article>
-        <article class="management-item is-risk">
-          <span class="management-number">6</span>
-          <p>Resolver el bloqueo de credenciales con Diego: se requiere acceso a RRSS, correo y web de Smartbots para ejecutar el cambio de estrategia comercial.</p>
-        </article>
-      </div>
     </section>
 
     <section class="panel timeline-panel">
@@ -182,6 +156,6 @@
     </section>
   </main>
 
-  <script src="script.js?v=20260616-5"></script>
+  <script src="script.js?v=20260616-6"></script>
 </body>
 </html>

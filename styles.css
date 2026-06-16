@@ -412,6 +412,16 @@ main {
 .analytics-grid > .panel {
   display: flex;
   flex-direction: column;
+  min-height: 0;
+}
+
+.priority-panel,
+.status-panel {
+  min-height: 280px;
+}
+
+.area-panel,
+.owner-panel {
   min-height: 420px;
 }
 
@@ -577,7 +587,7 @@ main {
 }
 
 .area-panel .bar-list {
-  max-height: 300px;
+  max-height: 340px;
   overflow-y: auto;
   padding-right: 6px;
   scrollbar-width: thin;
@@ -596,6 +606,23 @@ main {
 .area-panel .bar-list::-webkit-scrollbar-thumb {
   border-radius: 999px;
   background: #9db8cf;
+}
+
+.other-areas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 2px;
+}
+
+.other-areas span {
+  display: inline-flex;
+  padding: 3px 7px;
+  border-radius: 999px;
+  background: #edf3f8;
+  color: #4b5f72;
+  font-size: 0.72rem;
+  font-weight: 760;
 }
 
 .comparison-panel {
@@ -682,6 +709,7 @@ main {
 }
 
 .management-panel {
+  margin-top: 18px;
   margin-bottom: 18px;
 }
 
@@ -731,6 +759,24 @@ main {
   color: #3d4852;
   font-size: 0.9rem;
   line-height: 1.38;
+}
+
+.management-item small {
+  display: inline-flex;
+  margin-top: 7px;
+  padding: 3px 7px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--teal), transparent 86%);
+  color: var(--teal);
+  font-size: 0.68rem;
+  font-weight: 850;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.management-item.is-risk small {
+  background: color-mix(in srgb, var(--red), transparent 86%);
+  color: var(--red);
 }
 
 .management-item a {

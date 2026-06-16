@@ -37,7 +37,15 @@ const tasks = [
   { id: "IT-034", featured: true, title: "ALERTA DE CONTENEDORES VS MANIFIESTO", area: "Operaciones", owner: "FATIMA VILLAJULCA", category: "Automatizacion", priority: "Media", status: "En Proceso", start: "2026-06-11", end: "2026-06-30", actual: "", progressOverride: 20, notes: "" },
   { id: "IT-035", featured: false, title: "MODIFICACION DE TRACKIN DE DAM", area: "Clientes", owner: "REYSON FARFAN", category: "Desarrollo", priority: "Media", status: "En Proceso", start: "2026-06-12", end: "2026-06-30", actual: "", progressOverride: 40, notes: "" },
   { id: "IT-036", featured: true, title: "PRACTICANTE SMARBOTS", area: "SMARTBOTS", owner: "LEONARDO RIVAS", category: "Infraestructura", priority: "Media", status: "En Proceso", start: "2026-05-01", end: "2026-06-30", actual: "", progressOverride: 50, notes: "" },
-  { id: "IT-037", featured: true, title: "WEB RRSS SMARTBOT", area: "SMARTBOTS", owner: "LEONARDO RIVAS", category: "Infraestructura", priority: "Media", status: "En Proceso", start: "2026-05-01", end: "2026-06-30", actual: "", progressOverride: 90, notes: "" }
+  { id: "IT-037", featured: true, title: "WEB RRSS SMARTBOT", area: "SMARTBOTS", owner: "LEONARDO RIVAS", category: "Infraestructura", priority: "Media", status: "En Proceso", start: "2026-05-01", end: "2026-06-30", actual: "", progressOverride: 90, notes: "" },
+  { id: "IT-038", featured: true, title: "GASTOS REEMBOLSABLES", area: "Contabilidad", owner: "WILLIAM FLORES", category: "Automatizacion", priority: "Alta", status: "En Proceso", start: "2026-05-27", end: "2026-06-27", actual: "", progressOverride: 80, notes: "" }
+];
+
+const managementTasks = [
+  { id: 1, text: "Revision de los CV de practicantes de Smartbots", priority: "Urgente" },
+  { id: 2, text: "Revision con Diego de credenciales de RRHH", priority: "Urgente" },
+  { id: 3, text: "Compras de servicios con tarjeta de credito", priority: "Urgente" },
+  { id: 4, text: "Bono Equipo de desarrollo por seguimiento de bots", priority: "Media" }
 ];
 
 const colors = {
@@ -132,10 +140,11 @@ function render() {
   renderComparison(filtered);
   renderDonut(filtered);
   renderOwnerRanking(filtered);
-  renderBars("areaChart", countBy(filtered, "area"), filtered.length, false);
+  renderAreaChart(filtered);
   renderPriority(filtered);
   renderTimeline(filtered);
   renderTable(filtered);
+  renderManagement();
 }
 
 function renderKpis(items) {
@@ -384,6 +393,48 @@ function renderBars(targetId, counts, total, weighted) {
       </div>
     `;
   }).join("") : `<div class="empty-state">Sin datos para mostrar.</div>`;
+}
+
+function renderAreaChart(items) {
+  const counts = Object.entries(countBy(items, "area")).sort((a, b) => b[1] - a[1]);
+  const top = counts.slice(0, 5);
+  const rest = counts.slice(5);
+  const total = Math.max(1, items.length);
+  const max = Math.max(1, ...counts.map(([, value]) => value));
+  const entries = rest.length
+    ? [...top, ["OTROS", sum(rest, ([, value]) => value), rest]]
+    : top;
+
+  document.getElementById("areaChart").innerHTML = entries.map(([label, value, children], index) => {
+    const accent = ["#005ca9", "#0093d6", "#232323", "#21cde7", "#159f72", "#5b7288"][index % 6];
+    const share = (value / total) * 100;
+    const detail = Array.isArray(children)
+      ? `<div class="other-areas">${children.map(([area, count]) => `<span>${area} ${count}</span>`).join("")}</div>`
+      : "";
+    return `
+      <div class="bar-row ${Array.isArray(children) ? "is-other-area" : ""}">
+        <div class="bar-line"><span>${label}</span><strong>${value}</strong></div>
+        <div class="track"><div class="fill" style="--accent:${accent}; width:${(value / max) * 100}%"></div></div>
+        <span class="muted">${pct(share)} del total</span>
+        ${detail}
+      </div>
+    `;
+  }).join("");
+}
+
+function renderManagement() {
+  document.getElementById("managementList").innerHTML = managementTasks.map((task) => {
+    const urgent = task.priority.toLowerCase() === "urgente";
+    return `
+      <article class="management-item ${urgent ? "is-risk" : ""}">
+        <span class="management-number">${task.id}</span>
+        <div>
+          <p>${task.text}</p>
+          <small>${task.priority}</small>
+        </div>
+      </article>
+    `;
+  }).join("");
 }
 
 function renderOwnerRanking(items) {
