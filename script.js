@@ -320,27 +320,35 @@ function renderProgressOutlook(items, summary) {
 
   const outlook = [
     {
-      label: "Avance vs. corte anterior",
-      value: `${progressDelta >= 0 ? "+" : ""}${progressDelta} pp`,
-      note: `Portafolio en ${pct(avgProgress)} frente a ${previousPortfolio.progress}% del 02/06/2026.`,
+      label: "Avance del portafolio",
+      value: `${pct(avgProgress)}`,
+      before: `${previousPortfolio.progress}%`,
+      after: `${pct(avgProgress)}`,
+      result: `${progressDelta >= 0 ? "Subio" : "Bajo"} ${Math.abs(progressDelta)} puntos porcentuales desde el corte anterior.`,
       accent: progressDelta >= 0 ? colors.Completado : colors.Demorado
     },
     {
-      label: "Cierres nuevos",
-      value: `+${Math.max(0, completedDelta)}`,
-      note: `${summary.completed.length} completadas en total; areas con avance: ${improvedAreas}.`,
+      label: "Tareas completadas",
+      value: summary.completed.length,
+      before: previousPortfolio.completed,
+      after: summary.completed.length,
+      result: `${Math.max(0, completedDelta)} cierres adicionales. Areas que avanzaron: ${improvedAreas}.`,
       accent: colors.Completado
     },
     {
-      label: "Demoras actuales",
+      label: "Tareas con demora",
       value: summary.delayed.length,
-      note: delayedDelta < 0 ? `Mejora de ${Math.abs(delayedDelta)} tarea(s) demoradas vs. corte anterior.` : delayedDelta === 0 ? "Sin variacion frente al corte anterior." : `Aumenta en ${delayedDelta} tarea(s) vs. corte anterior.`,
+      before: previousPortfolio.delayed,
+      after: summary.delayed.length,
+      result: delayedDelta < 0 ? `Mejoro: hay ${Math.abs(delayedDelta)} demora(s) menos.` : delayedDelta === 0 ? "Sin cambio frente al corte anterior." : `Atencion: hay ${delayedDelta} demora(s) mas.`,
       accent: summary.delayed.length ? colors.Demorado : colors.Completado
     },
     {
-      label: "Riesgo inmediato",
+      label: "Vencen esta semana",
       value: summary.dueSoon.length,
-      note: "Entregas activas con vencimiento dentro de 7 dias.",
+      before: previousPortfolio.dueSoon,
+      after: summary.dueSoon.length,
+      result: "Tareas activas que vencen dentro de los proximos 7 dias.",
       accent: colors.Media
     }
   ];
@@ -349,7 +357,11 @@ function renderProgressOutlook(items, summary) {
     <article class="outlook-card" style="--accent:${item.accent}">
       <span>${item.label}</span>
       <strong>${item.value}</strong>
-      <p>${item.note}</p>
+      <div class="outlook-values">
+        <small>Antes <b>${item.before}</b></small>
+        <small>Ahora <b>${item.after}</b></small>
+      </div>
+      <p>${item.result}</p>
     </article>
   `).join("");
 }

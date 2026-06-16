@@ -252,6 +252,29 @@ main {
   line-height: 1;
 }
 
+.outlook-values {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.outlook-values small {
+  display: grid;
+  gap: 2px;
+  padding: 7px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.68);
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 780;
+}
+
+.outlook-values b {
+  color: var(--ink);
+  font-size: 0.92rem;
+}
+
 .outlook-card p {
   margin: 0;
   color: #3d4852;
