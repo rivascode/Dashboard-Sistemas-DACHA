@@ -166,7 +166,7 @@ function renderKpis(items) {
   }));
 
   const cards = [
-    { label: "Tareas activas", value: active.length, note: `${items.length} tareas reales en cartera`, accent: "#005ca9", icon: "▦", primary: true },
+    { label: "Tareas activas", value: active.length, note: `${active.length} abiertas de ${items.length} tareas totales del portafolio`, accent: "#005ca9", icon: "▦" },
     { label: "Completadas", value: completed.length, note: `${pct(completionRate)} de cierre`, accent: "#159f72", icon: "✓" },
     { label: "En demora", value: delayed.length, note: `${sum(delayed, (t) => t.delayDays)} dias acumulados`, accent: "#d1495b", icon: "!" },
     { label: "Vencen <= 7 dias", value: dueSoon.length, note: "Requieren seguimiento", accent: "#f0a202", icon: "◷" },
@@ -177,7 +177,6 @@ function renderKpis(items) {
       value: "100%",
       accent: "#232323",
       icon: "≡",
-      wide: true,
       custom: `
         <div class="category-mix">
           ${categoryMix.map((item) => `

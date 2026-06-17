@@ -126,10 +126,16 @@ main {
   margin-bottom: 18px;
 }
 
+.followup-panel {
+  margin-bottom: 18px;
+  padding: 22px;
+}
+
 .kpi-grid {
   display: grid;
-  grid-template-columns: repeat(9, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 14px;
+  align-items: stretch;
   margin-bottom: 18px;
 }
 
@@ -149,18 +155,16 @@ main {
 .kpi-card {
   position: relative;
   overflow: hidden;
-  min-height: 130px;
+  min-height: 156px;
   padding: 17px;
 }
 
 .kpi-card.kpi-primary {
-  grid-column: span 2;
-  min-height: 150px;
   background: linear-gradient(135deg, #ffffff, #e8f6ff);
 }
 
 .kpi-card.kpi-wide {
-  grid-column: span 2;
+  grid-column: auto;
 }
 
 .kpi-card::after {
@@ -191,12 +195,14 @@ main {
 }
 
 .kpi-primary .kpi-value {
-  font-size: clamp(3.1rem, 5vw, 4.7rem);
+  font-size: clamp(1.9rem, 3vw, 2.8rem);
 }
 
 .kpi-note {
   color: var(--muted);
   font-size: 0.86rem;
+  max-width: 210px;
+  line-height: 1.25;
 }
 
 .executive-summary {
@@ -1441,7 +1447,7 @@ tr.is-featured td {
   }
 
   .kpi-grid {
-    grid-template-columns: repeat(9, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 5px;
     margin-bottom: 6px;
   }
