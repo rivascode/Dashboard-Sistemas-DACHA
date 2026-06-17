@@ -69,7 +69,7 @@ const previousPortfolio = {
   progress: 47
 };
 
-let sortState = { key: "delayDays", direction: "desc" };
+let sortState = { key: "endDate", direction: "asc" };
 
 const parseDate = (value) => value ? new Date(`${value}T00:00:00`) : null;
 const dayMs = 24 * 60 * 60 * 1000;
@@ -87,6 +87,7 @@ function enrich(task) {
   const scheduleProgress = Math.min(95, Math.max(5, (elapsed / duration) * 100));
   const inactive = task.status === "Completado" || task.status === "Cancelado";
   const hasProgressOverride = typeof task.progressOverride === "number";
+  const manualProgress = hasProgressOverride ? task.progressOverride : null;
   const progress = task.status === "Completado" ? 100 : hasProgressOverride ? task.progressOverride : scheduleProgress;
   const delayDays = inactive
     ? Math.max(0, diffDays(actual, end))
@@ -95,7 +96,7 @@ function enrich(task) {
   const risk = task.status === "Cancelado" ? "Cerrado" : task.status === "Demorado" || delayDays > 0 ? "Alto" : daysToDue <= 7 ? "Medio" : "Normal";
   const active = !inactive;
 
-  return { ...task, startDate: start, endDate: end, actualDate: actual, duration, progress, delayDays, daysToDue, risk, active };
+  return { ...task, startDate: start, endDate: end, actualDate: actual, duration, progress, manualProgress, delayDays, daysToDue, risk, active };
 }
 
 const dataset = tasks.map(enrich);
@@ -516,15 +517,20 @@ function renderTimeline(items) {
   `;
 
   let completedDividerShown = false;
-  const rows = sorted.length ? sorted.map((task) => {
+  const activeDivider = sorted.some((task) => task.featured && task.status !== "Completado")
+    ? `<div class="timeline-section-divider is-active"><span>Destacadas en proceso</span></div>`
+    : "";
+  const rows = sorted.length ? activeDivider + sorted.map((task) => {
     const left = Math.max(0, (diffDays(task.startDate, minStart) / range) * 100);
     const width = Math.max(2, (task.duration / range) * 100);
     const accent = task.delayDays > 0 && task.active ? colors.Demorado : colors[task.status];
     const completedFeatured = task.featured && task.status === "Completado";
-    const featuredTag = completedFeatured ? "Completada" : "Destacada";
     const riskLabel = completedFeatured ? "Completada" : task.risk;
     const showProgressLabel = task.active && task.status !== "Cancelado";
     const progressLabel = showProgressLabel ? `<b class="timeline-progress-label">Avance ${pct(task.progress)}</b>` : "";
+    const featuredMarker = task.featured
+      ? `<span class="timeline-featured-icon" title="${completedFeatured ? "Completada" : "Destacada"}">${completedFeatured ? "✓" : "★"}</span>`
+      : "";
     const divider = completedFeatured && !completedDividerShown
       ? `<div class="timeline-section-divider"><span>Completadas</span></div>`
       : "";
@@ -533,13 +539,12 @@ function renderTimeline(items) {
       ${divider}
       <div class="timeline-row ${task.featured ? "is-featured" : ""} ${completedFeatured ? "is-completed-featured" : ""}">
         <div class="timeline-label">
-          <strong title="${task.title}">${task.title}${task.featured ? `<span class="timeline-featured-tag">${featuredTag}</span>` : ""}</strong>
+          <strong title="${task.title}">${featuredMarker}<span class="timeline-title-text">${task.title}</span></strong>
           <span>${task.owner} · Inicio ${fmtShortDate(task.start)} · Fin aprox. ${fmtShortDate(task.end)} ${progressLabel}</span>
         </div>
         <div class="timeline-track">
           <div class="timeline-bar" style="--accent:${accent}; left:${left}%; width:${width}%">
             <div class="timeline-progress" style="width:${task.progress}%"></div>
-            ${showProgressLabel ? `<span class="timeline-bar-label">${pct(task.progress)}</span>` : ""}
           </div>
         </div>
         <span class="status-pill" style="--accent:${accent}">${riskLabel}</span>
@@ -571,6 +576,10 @@ function getMonths(minStart, maxEnd) {
 
 function renderTable(items) {
   const sorted = [...items].sort((a, b) => {
+    const aCompleted = a.status === "Completado";
+    const bCompleted = b.status === "Completado";
+    if (aCompleted !== bCompleted) return aCompleted ? 1 : -1;
+
     const key = sortState.key;
     const av = a[key] instanceof Date ? a[key].getTime() : a[key];
     const bv = b[key] instanceof Date ? b[key].getTime() : b[key];
@@ -583,9 +592,13 @@ function renderTable(items) {
   document.getElementById("tableCount").textContent = `${sorted.length} registros`;
   document.getElementById("taskTable").innerHTML = sorted.length ? sorted.map((task) => {
     const accent = task.delayDays > 0 && task.active ? colors.Demorado : colors[task.status];
+    const hasManualProgress = typeof task.manualProgress === "number";
+    const featuredIcon = task.featured
+      ? `<span class="detail-featured-icon" title="${task.status === "Completado" ? "Completada" : "Destacada"}">${task.status === "Completado" ? "✓" : "★"}</span>`
+      : "";
     return `
-      <tr class="${task.featured ? "is-featured" : ""}">
-        <td class="task-title">${task.title}${task.featured ? `<span class="featured-tag">Destacada</span>` : ""}<br><span class="muted">${task.category}${task.notes ? ` · ${task.notes}` : ""}</span></td>
+      <tr class="${task.featured ? "is-featured" : ""} ${task.status === "Completado" ? "is-completed" : ""}">
+        <td class="task-title"><div class="detail-title-line">${featuredIcon}<span>${task.title}</span></div><span class="muted">${task.category}${task.notes ? ` · ${task.notes}` : ""}</span></td>
         <td>${task.area}</td>
         <td>${task.owner}</td>
         <td><span class="status-pill" style="--accent:${accent}">${task.status}</span></td>
@@ -593,9 +606,9 @@ function renderTable(items) {
         <td>${fmtDate(task.end)}</td>
         <td><strong>${task.delayDays}</strong></td>
         <td>
-          <div class="mini-progress">
-            <div class="track"><div class="fill" style="--accent:${accent}; width:${task.progress}%"></div></div>
-            <span>${pct(task.progress)}</span>
+          <div class="mini-progress ${hasManualProgress ? "" : "is-empty"}" title="Avance registrado en Excel">
+            <div class="track"><div class="fill" style="--accent:${accent}; width:${hasManualProgress ? task.manualProgress : 0}%"></div></div>
+            <span>${hasManualProgress ? pct(task.manualProgress) : "—"}</span>
           </div>
         </td>
       </tr>
