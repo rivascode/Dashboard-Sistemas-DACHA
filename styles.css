@@ -884,6 +884,18 @@ main {
   font-size: 0.76rem;
 }
 
+.timeline-progress-label {
+  display: inline-flex;
+  margin-left: 6px;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: #e5f2ff;
+  color: var(--blue);
+  font-size: 0.7rem;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
 .timeline-track {
   position: relative;
   min-width: 0;
@@ -901,6 +913,22 @@ main {
   min-width: 6px;
   border-radius: 999px;
   background: var(--accent);
+}
+
+.timeline-bar-label {
+  position: absolute;
+  left: calc(100% + 6px);
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--accent);
+  font-size: 0.68rem;
+  font-weight: 900;
+  line-height: 1;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent), transparent 62%);
+  white-space: nowrap;
 }
 
 .timeline-progress {

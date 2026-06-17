@@ -523,6 +523,8 @@ function renderTimeline(items) {
     const completedFeatured = task.featured && task.status === "Completado";
     const featuredTag = completedFeatured ? "Completada" : "Destacada";
     const riskLabel = completedFeatured ? "Completada" : task.risk;
+    const showProgressLabel = task.active && task.status !== "Cancelado";
+    const progressLabel = showProgressLabel ? `<b class="timeline-progress-label">Avance ${pct(task.progress)}</b>` : "";
     const divider = completedFeatured && !completedDividerShown
       ? `<div class="timeline-section-divider"><span>Completadas</span></div>`
       : "";
@@ -532,11 +534,12 @@ function renderTimeline(items) {
       <div class="timeline-row ${task.featured ? "is-featured" : ""} ${completedFeatured ? "is-completed-featured" : ""}">
         <div class="timeline-label">
           <strong title="${task.title}">${task.title}${task.featured ? `<span class="timeline-featured-tag">${featuredTag}</span>` : ""}</strong>
-          <span>${task.owner} · Inicio ${fmtShortDate(task.start)} · Fin aprox. ${fmtShortDate(task.end)}</span>
+          <span>${task.owner} · Inicio ${fmtShortDate(task.start)} · Fin aprox. ${fmtShortDate(task.end)} ${progressLabel}</span>
         </div>
         <div class="timeline-track">
           <div class="timeline-bar" style="--accent:${accent}; left:${left}%; width:${width}%">
             <div class="timeline-progress" style="width:${task.progress}%"></div>
+            ${showProgressLabel ? `<span class="timeline-bar-label">${pct(task.progress)}</span>` : ""}
           </div>
         </div>
         <span class="status-pill" style="--accent:${accent}">${riskLabel}</span>
