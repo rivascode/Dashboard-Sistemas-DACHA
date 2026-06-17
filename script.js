@@ -371,21 +371,29 @@ function renderDonut(items) {
   const counts = countBy(items, "status");
   const total = Math.max(1, items.length);
   const order = ["En Proceso", "Completado", "Pendiente", "Cancelado", "Demorado"];
-  let cursor = 0;
-  const segments = order.filter((status) => counts[status]).map((status) => {
+  const entries = order.filter((status) => counts[status]).map((status) => {
     const value = counts[status];
-    const start = cursor;
-    cursor += (value / total) * 100;
-    return `${colors[status] || "#687482"} ${start}% ${cursor}%`;
+    return { status, value, share: (value / total) * 100 };
   });
 
-  document.getElementById("statusDonut").style.background = `conic-gradient(${segments.join(", ") || "#e4edf5 0 100%"})`;
-  document.getElementById("statusLegend").innerHTML = order.filter((status) => counts[status]).map((status) => {
-    const value = counts[status];
+  document.getElementById("statusDonut").innerHTML = `
+    <div class="status-total">
+      <strong>${items.length}</strong>
+      <span>tareas del portafolio</span>
+    </div>
+    <div class="status-stack-bar">
+      ${entries.map(({ status, share }) => `
+        <span class="status-stack-segment" style="--accent:${colors[status]}; width:${share}%" title="${status}: ${pct(share)}">
+          ${share >= 9 ? pct(share) : ""}
+        </span>
+      `).join("")}
+    </div>
+  `;
+  document.getElementById("statusLegend").innerHTML = entries.map(({ status, value, share }) => {
     return `
     <div class="legend-item">
-      <div class="legend-line"><span><i class="dot" style="--accent:${colors[status]}"></i>${status}</span><strong>${value}</strong></div>
-      <div class="track"><div class="fill" style="--accent:${colors[status]}; width:${(value / total) * 100}%"></div></div>
+      <div class="legend-line"><span><i class="dot" style="--accent:${colors[status]}"></i>${status}</span><strong>${value} · ${pct(share)}</strong></div>
+      <div class="track"><div class="fill" style="--accent:${colors[status]}; width:${share}%"></div></div>
     </div>
   `;
   }).join("");
