@@ -377,26 +377,17 @@ function renderDonut(items) {
   });
 
   document.getElementById("statusDonut").innerHTML = `
-    <div class="status-total">
-      <strong>${items.length}</strong>
-      <span>tareas del portafolio</span>
-    </div>
-    <div class="status-stack-bar">
+    <div class="status-cards">
       ${entries.map(({ status, share }) => `
-        <span class="status-stack-segment" style="--accent:${colors[status]}; width:${share}%" title="${status}: ${pct(share)}">
-          ${share >= 9 ? pct(share) : ""}
-        </span>
+        <article class="status-card" style="--accent:${colors[status]}">
+          <span><i class="dot" style="--accent:${colors[status]}"></i>${status}</span>
+          <strong>${counts[status]}</strong>
+          <small>${pct(share)} del portafolio</small>
+        </article>
       `).join("")}
     </div>
   `;
-  document.getElementById("statusLegend").innerHTML = entries.map(({ status, value, share }) => {
-    return `
-    <div class="legend-item">
-      <div class="legend-line"><span><i class="dot" style="--accent:${colors[status]}"></i>${status}</span><strong>${value} · ${pct(share)}</strong></div>
-      <div class="track"><div class="fill" style="--accent:${colors[status]}; width:${share}%"></div></div>
-    </div>
-  `;
-  }).join("");
+  document.getElementById("statusLegend").innerHTML = `<span class="muted">${items.length} tareas del portafolio</span>`;
 }
 
 function renderBars(targetId, counts, total, weighted) {
@@ -480,9 +471,12 @@ function renderOwnerRanking(items) {
 }
 
 function renderPriority(items) {
-  const counts = countBy(items.filter((t) => t.active), "priority");
+  const activeItems = items.filter((t) => t.active);
+  const counts = countBy(activeItems, "priority");
+  const canceled = items.filter((t) => t.status === "Cancelado").length;
+  if (canceled) counts.Cancelado = canceled;
   const total = Math.max(1, sum(Object.values(counts), (value) => value));
-  const order = ["Alta", "Media", "Baja"];
+  const order = ["Alta", "Media", "Baja", "Cancelado"];
 
   document.getElementById("priorityChart").innerHTML = order.map((priority) => {
     const value = counts[priority] || 0;
