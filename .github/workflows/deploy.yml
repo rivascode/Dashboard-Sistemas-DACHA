@@ -29,8 +29,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Patch page for static export
-        run: sed -i 's/force-dynamic/force-static/g' src/app/page.tsx
+      - name: Prepare for static export
+        run: |
+          sed -i 's/force-dynamic/force-static/g' src/app/page.tsx
+          rm -rf src/app/api
 
       - name: Build static export
         run: npm run export
