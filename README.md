@@ -1,90 +1,181 @@
-# Avances del Area de TI
+# Dashboard Sistemas DACHA
 
-Dashboard ejecutivo para presentar a gerencia el avance de tareas del area de TI, construido a partir del archivo `GANTT SISTEMAS.xlsx`.
+Centro de comando para el seguimiento en tiempo real del portafolio tecnológico del Área de TI.
+Visualiza avances, demoras, carga de trabajo por responsable, cronograma Gantt interactivo y decisiones pendientes de gerencia.
 
-## Vista publicada
+**Demo en vivo:** [https://rivascode.github.io/Dashboard-Sistemas-DACHA](https://rivascode.github.io/Dashboard-Sistemas-DACHA)
 
-GitHub Pages:
+---
 
-https://rivascode.github.io/Dashboard-Sistemas-DACHA/
+## Stack tecnológico
 
-## Objetivo
+| Capa | Tecnología |
+|---|---|
+| Framework | Next.js 15 (App Router) |
+| UI | React 19 + TypeScript strict |
+| Estilos | Tailwind CSS v4 (`@theme` directive) |
+| Animaciones | Framer Motion |
+| Gráficas | Recharts (donut/pie chart) |
+| Íconos | Lucide React |
+| Excel parser | SheetJS (xlsx) |
+| Runtime | Node.js 20+ |
 
-El tablero resume el estado del portafolio de tareas TI con foco en:
+**Tema:** Glassmorphism oscuro con estética neon/aurora — fondo animado CSS grid, tarjetas con backdrop-blur y acentos de color por estado.
 
-- tareas activas, completadas, demoradas y proximas a vencer;
-- carga de trabajo por responsable;
-- asignacion por area solicitante;
-- porcentaje y cantidad de tareas por categoria: Automatizacion, Desarrollo e Infraestructura;
-- tareas destacadas en proceso marcadas desde el archivo fuente;
-- distribucion por prioridad;
-- cronograma tipo Gantt por meses;
-- detalle operativo de tareas, fechas, responsable, estado, demora y avance estimado.
+---
 
-## Estructura del dashboard
+## Requisitos
 
-1. **Resumen General**
-   - Indicadores principales del portafolio.
-   - Tareas atrasadas y por vencer.
-   - Tareas destacadas en proceso.
-   - Leyenda de alertas:
-     - Rojo: tareas vencidas.
-     - Amarillo: tareas por vencer el plazo.
+- Node.js 18 o superior
+- npm 9 o superior
 
-2. **Cronograma**
-   - Linea de tiempo por meses.
-   - Barras por tarea.
-   - Riesgo visual por tarea.
-   - Ocupa todo el ancho para facilitar lectura en presentacion e impresion.
+---
 
-3. **Metricas de gestion**
-   - Estado.
-   - Responsables.
-   - Areas.
-   - Prioridad.
-   - Mix por categoria.
+## Instalación y uso local
 
-4. **Detalle**
-   - Tabla completa de tareas y seguimiento.
-   - Ordenable al hacer clic en los encabezados.
+```bash
+# 1. Clonar el repositorio
+git clone https://github.com/rivascode/Dashboard-Sistemas-DACHA.git
+cd Dashboard-Sistemas-DACHA
 
-## Impresion y PDF
+# 2. Instalar dependencias
+npm install
 
-La pagina incluye un boton **Imprimir PDF** que abre el dialogo de impresion del navegador.
+# 3. Levantar en modo desarrollo
+npm run dev
+```
 
-Configuracion recomendada:
+Abre [http://localhost:3000](http://localhost:3000) en el navegador.
 
-- Papel: A4.
-- Orientacion: horizontal.
-- Escala: predeterminada o ajustar a pagina.
-- Graficos de fondo: activados, para conservar colores.
+---
 
-La hoja impresa esta preparada para:
+## Scripts disponibles
 
-- resumen general en una hoja;
-- cronograma/Gantt en una hoja completa;
-- tarjetas de metricas en una hoja;
-- detalle en una hoja completa.
+| Comando | Descripción |
+|---|---|
+| `npm run dev` | Servidor de desarrollo con hot-reload |
+| `npm run build` | Build de producción con API routes |
+| `npm start` | Servidor de producción |
+| `npm run export` | Build estático para GitHub Pages (sin API) |
+| `npm run lint` | Linting con ESLint |
 
-## Responsividad
+---
 
-El dashboard esta adaptado para escritorio, tablet y celular. En pantallas pequenas las tarjetas se apilan, el cronograma mantiene lectura vertical y la tabla queda desplazable horizontalmente.
+## Carga de datos vía Excel
 
-## Archivos principales
+El dashboard permite reemplazar toda la data subiendo un archivo `.xlsx` o `.xls` desde el botón **"Cargar Excel"** en el encabezado.
 
-- `index.html`: estructura de la pagina.
-- `styles.css`: estilos visuales, responsive e impresion A4.
-- `script.js`: datos, metricas, graficos y comportamiento del boton de impresion.
-- `.nojekyll`: permite publicar el sitio estatico directamente en GitHub Pages.
+### Columnas reconocidas
 
-## Notas de datos
+El parser es tolerante a tildes, mayúsculas/minúsculas y variantes ortográficas.
 
-La columna `Progreso (%)` del archivo fuente estaba vacia. Por eso, el avance mostrado se calcula de forma estimada a partir del estado y las fechas:
+| Columna en Excel | Campo interno | Requerido |
+|---|---|---|
+| Tarea / Nombre / Título | `title` | ✅ |
+| Área / Area | `area` | ✅ |
+| Responsable / Owner | `owner` | ✅ |
+| Estado / Status | `status` | ✅ |
+| Inicio / Fecha Inicio | `startDate` | ✅ |
+| Fin / Fecha Fin / Vencimiento | `endDate` | ✅ |
+| Prioridad / Priority | `priority` | — |
+| Progreso / Avance / % | `manualProgress` | — |
+| Categoría / Categoria | `category` | — |
+| Notas / Comentarios | `notes` | — |
 
-- tareas completadas: 100%;
-- tareas activas: avance estimado segun fecha de inicio, fecha fin y fecha de corte;
-- tareas demoradas: marcadas con riesgo alto cuando superan la fecha fin estimada.
+### Valores válidos para Estado
 
-Fecha de corte usada en el dashboard: **02/06/2026**.
+`Completado` · `En Proceso` · `Demorado` · `Pendiente` · `Cancelado`
 
-La columna `Tarea Destacada` permite resaltar tareas relevantes en el resumen, el cronograma y el detalle. En el resumen se muestran especificamente las tareas destacadas que estan **En Proceso**. En la version actual se incorporo la tarea **NUMERACIONES MARITIMAS**.
+### Persistencia de datos
+
+Los datos cargados se guardan en `data/state.json` y **sobreviven reinicios del servidor**.
+Al volver a levantar el proyecto, el último Excel subido se restaura automáticamente.
+Si no existe ningún archivo previo, se cargan los datos semilla de `src/lib/data.ts`.
+
+---
+
+## Estructura del proyecto
+
+```
+src/
+├── app/
+│   ├── page.tsx                  # Página principal (SSR / SSG condicional)
+│   ├── globals.css               # Tema global, clases utilitarias glass/neon
+│   └── api/
+│       ├── tasks/route.ts        # GET  /api/tasks  → payload completo
+│       └── upload/route.ts       # POST /api/upload → parsea Excel y reemplaza data
+├── components/
+│   ├── dashboard/
+│   │   ├── dashboard.tsx         # Orquestador principal, todos los useMemo derivados
+│   │   ├── kpi-grid.tsx          # 6 KPIs con AnimatedNumber
+│   │   ├── timeline.tsx          # Cronograma Gantt con sticky header de meses
+│   │   ├── task-table.tsx        # Tabla completa filtrable y ordenable con scroll
+│   │   ├── status-chart.tsx      # Donut chart de estados (Recharts)
+│   │   ├── bar-list.tsx          # Barras de ranking / área / "Otro"
+│   │   ├── comparison.tsx        # Evolución vs corte anterior
+│   │   ├── outlook.tsx           # Resumen ejecutivo 4 indicadores
+│   │   ├── management.tsx        # Decisiones pendientes de gerencia
+│   │   ├── priority-chart.tsx    # Distribución de prioridad
+│   │   └── upload-button.tsx     # Botón carga Excel (oculto en build estático)
+│   └── ui/
+│       ├── section.tsx           # Tarjeta glass con kicker, título y prop clip
+│       └── animated-number.tsx   # Contador animado con Framer Motion
+└── lib/
+    ├── types.ts                  # Interfaces: RawTask, EnrichedTask, DashboardPayload…
+    ├── data.ts                   # Datos semilla (38 tareas, fechas, portafolio previo)
+    ├── enrich.ts                 # Calcula progress, delayDays, daysToDue por tarea
+    ├── parse-excel.ts            # SheetJS: mapeo tolerante de columnas en español
+    ├── store.ts                  # Singleton globalThis + lectura/escritura en disco
+    ├── derive.ts                 # Agregaciones: KPIs, rankings, alertas, outlook
+    ├── theme.ts                  # STATUS_COLORS y ACCENTS
+    └── utils.ts                  # Helpers de fecha, formato y matemática
+
+data/
+└── state.json                    # Estado persistido por uploads (no versionado en git)
+
+.github/
+└── workflows/
+    └── deploy.yml                # CI/CD → GitHub Pages (build estático)
+```
+
+---
+
+## Despliegue en GitHub Pages
+
+El sitio se publica automáticamente en cada push a `main` via GitHub Actions.
+
+**URL pública:** [https://rivascode.github.io/Dashboard-Sistemas-DACHA](https://rivascode.github.io/Dashboard-Sistemas-DACHA)
+
+Para activar GitHub Pages por primera vez:
+1. Ve a **Settings → Pages** en el repositorio
+2. En *Source* selecciona **GitHub Actions**
+3. Haz push a `main` — el workflow construye el export estático y lo publica
+
+> **Nota:** La versión publicada en GitHub Pages muestra los datos de demostración fijos.
+> La carga de Excel solo funciona en la versión local con servidor Node.js activo (`npm run dev` o `npm start`).
+
+---
+
+## Variables de entorno
+
+| Variable | Descripción |
+|---|---|
+| `STATIC_EXPORT=true` | Activa `output: export` y `basePath` para GH Pages |
+| `NEXT_PUBLIC_STATIC_EXPORT=true` | Oculta el botón de carga en el build estático |
+
+---
+
+## Impresión / PDF
+
+El botón **PDF** en el encabezado abre el diálogo de impresión del navegador.
+
+Configuración recomendada:
+- Papel: A4 horizontal
+- Escala: ajustar a página
+- Gráficos de fondo: **activado** (para conservar colores)
+
+---
+
+## Licencia
+
+MIT — Área de Sistemas · DACHA
