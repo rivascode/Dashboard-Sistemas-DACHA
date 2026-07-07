@@ -1,15 +1,22 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { AlertCircle } from "lucide-react";
+import { AlertCircle, Mail } from "lucide-react";
 import type { ManagementTask } from "@/lib/types";
+
+const PRIORITY_COLORS: Record<ManagementTask["priority"], string> = {
+  Urgente: "#fb5e7e",
+  Alta: "#f5b942",
+  Media: "#22d3ee",
+  Baja: "#7c8aa5",
+};
 
 export function Management({ tasks }: { tasks: ManagementTask[] }) {
   return (
     <div className="flex flex-col gap-2.5">
       {tasks.map((task, i) => {
-        const urgent = task.priority.toLowerCase() === "urgente";
-        const accent = urgent ? "#fb5e7e" : "#f5b942";
+        const urgent = task.priority === "Urgente";
+        const accent = PRIORITY_COLORS[task.priority];
         return (
           <motion.article
             key={task.id}
@@ -28,6 +35,12 @@ export function Management({ tasks }: { tasks: ManagementTask[] }) {
             </span>
             <div className="min-w-0">
               <p className="text-sm leading-snug text-slate-200">{task.text}</p>
+              {task.subject && (
+                <span className="mt-1 flex items-start gap-1.5 text-[0.7rem] leading-snug text-slate-500">
+                  <Mail className="mt-0.5 h-3 w-3 shrink-0" />
+                  {task.subject}
+                </span>
+              )}
               <span className="mt-1 inline-flex items-center gap-1 text-xs" style={{ color: accent }}>
                 {urgent && <AlertCircle className="h-3 w-3" />}
                 {task.priority}

@@ -43,7 +43,28 @@ export interface EnrichedTask extends RawTask {
 export interface ManagementTask {
   id: number;
   text: string;
-  priority: "Urgente" | "Media" | "Baja";
+  priority: "Urgente" | "Alta" | "Media" | "Baja";
+  subject?: string;
+}
+
+export type QuoteStatus =
+  | "POR HACER"
+  | "POR ENVIAR"
+  | "Enviada"
+  | "En seguimiento"
+  | "Negociación"
+  | "Ganada"
+  | "Perdida";
+
+export interface Quotation {
+  id: number;
+  client: string;
+  project: string;
+  status: QuoteStatus;
+  owner: string;
+  sentDate: string; // ISO yyyy-mm-dd, "" if not sent
+  followUp: string; // ISO yyyy-mm-dd, "" if none
+  notes: string;
 }
 
 export interface PortfolioSnapshot {

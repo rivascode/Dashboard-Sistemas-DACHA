@@ -17,6 +17,7 @@ import { KpiGrid } from "./kpi-grid";
 import { Management } from "./management";
 import { Outlook } from "./outlook";
 import { PriorityChart } from "./priority-chart";
+import { Quotes } from "./quotes";
 import { StatusChart } from "./status-chart";
 import { TaskTable } from "./task-table";
 import { Timeline } from "./timeline";
@@ -30,6 +31,7 @@ import {
   featuredInProcess,
   ownerRanking,
 } from "@/lib/derive";
+import { QUOTATIONS } from "@/lib/data";
 import type { DashboardPayload } from "@/lib/types";
 import { fmtDate } from "@/lib/utils";
 
@@ -88,7 +90,7 @@ export function Dashboard({ initial }: { initial: DashboardPayload }) {
               <Sparkles className="h-3.5 w-3.5" />
               Gantt Sistemas · Centro de Comando TI
             </div>
-            <h1 className="text-3xl font-bold tracking-tight text-white md:text-4xl xl:text-5xl">
+            <h1 className="title-gradient text-3xl font-bold tracking-tight md:text-4xl xl:text-5xl">
               Avances del Área de TI
             </h1>
             <p className="mt-2 max-w-xl text-sm text-slate-400 md:text-base">
@@ -213,6 +215,17 @@ export function Dashboard({ initial }: { initial: DashboardPayload }) {
 
         <Section kicker="Pendientes de gerencia" title="Decisiones requeridas" accent="#f5b942">
           <Management tasks={data.management} />
+        </Section>
+      </div>
+
+      {/* ===== SMARTBOT QUOTES ===== */}
+      <div className="mb-6">
+        <Section
+          kicker="Comercial · Smartbots"
+          title="Status de cotizaciones Smartbot"
+          accent="#7c5cff"
+        >
+          <Quotes items={QUOTATIONS} />
         </Section>
       </div>
 

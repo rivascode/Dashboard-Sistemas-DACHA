@@ -34,10 +34,17 @@ body::before {
   inset: 0;
   z-index: -2;
   background:
-    radial-gradient(900px 600px at 12% -10%, rgba(124, 92, 255, 0.22), transparent 60%),
-    radial-gradient(800px 600px at 100% 0%, rgba(34, 211, 238, 0.18), transparent 55%),
-    radial-gradient(700px 700px at 50% 120%, rgba(34, 225, 161, 0.12), transparent 60%),
+    radial-gradient(1000px 700px at 12% -10%, rgba(124, 92, 255, 0.3), transparent 60%),
+    radial-gradient(900px 650px at 100% 0%, rgba(34, 211, 238, 0.24), transparent 55%),
+    radial-gradient(800px 800px at 50% 120%, rgba(34, 225, 161, 0.16), transparent 60%),
+    radial-gradient(600px 500px at 80% 60%, rgba(232, 121, 249, 0.08), transparent 55%),
     var(--color-bg);
+  animation: aurora-breathe 14s ease-in-out infinite alternate;
+}
+
+@keyframes aurora-breathe {
+  from { filter: hue-rotate(0deg) saturate(1); }
+  to { filter: hue-rotate(24deg) saturate(1.25); }
 }
 
 body::after {
@@ -102,6 +109,31 @@ body::after {
   text-shadow: 0 0 22px var(--accent, rgba(34, 211, 238, 0.6));
 }
 
+/* Gradient headline for the hero */
+.title-gradient {
+  background: linear-gradient(92deg, #ffffff 10%, #9be9ff 45%, #c4b5fd 80%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Animated shimmer along card top accents */
+.accent-top::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.85), transparent);
+  background-size: 200% 100%;
+  opacity: 0.35;
+  animation: accent-shimmer 5s ease-in-out infinite;
+}
+
+@keyframes accent-shimmer {
+  0%, 100% { background-position: 200% 0; }
+  50% { background-position: -100% 0; }
+}
+
 /* Generic progress track */
 .track {
   height: 7px;
@@ -163,5 +195,6 @@ body::after {
 @media print {
   body::before, body::after { display: none; }
   .glass { background: #fff; color: #000; border-color: #ddd; box-shadow: none; }
+  .title-gradient { background: none; color: #000; }
   .no-print { display: none !important; }
 }
